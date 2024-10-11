@@ -9,13 +9,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class PageController {
     @GetMapping("/login")
-    public String loginPage(){
+    public String loginPage() {
         return "/pages/user/login";
     }
 
     @GetMapping("/join")
-    public String joinPage(Model model, @AuthenticationPrincipal CustomOAuth2User oAuth2User){
+    public String joinPage(Model model, @AuthenticationPrincipal CustomOAuth2User oAuth2User) {
         model.addAttribute("oauth", oAuth2User.getUserInfo());
         return "/pages/user/join";
+    }
+
+    @GetMapping("/chat1")
+    public String chat(Model model, @AuthenticationPrincipal CustomOAuth2User oAuth2User) {
+        model.addAttribute("oauth", oAuth2User.getUserInfo());
+        return "/pages/chat/chat1";
     }
 }

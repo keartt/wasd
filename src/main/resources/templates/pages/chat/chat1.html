@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Spring Boot WebSocket Chat Application</title>
+
+    <link rel="stylesheet" href="/chat/chat1.css" />
+    <link rel="stylesheet" href="/util/dropzone.min.css" type="text/css"/>
+
+    <script src="/webjars/sockjs-client/1.5.1/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/2.3.4/stomp.min.js"></script>
+    <script src="/util/jquery-3.5.1.min.js"></script>
+    <script src="/util/dropzone.min.js"></script>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body style="overflow-y: scroll">
+
+<div id="username-page">
+    <div class="username-page-container">
+        <h1 class="title">네 이름?</h1>
+        <form id="usernameForm" name="usernameForm">
+            <div class="form-group">
+                <input type="text" id="name" placeholder="Username" autocomplete="off" class="form-control" />
+            </div>
+            <label for="room">방 이름?</label>
+            <div class="form-group">
+                <input type="text" id="room" placeholder="room" autocomplete="off" class="form-control" />
+            </div>
+            <div class="form-group">
+                <button type="submit" class="accent username-submit">시작</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="chat-page" class="hidden">
+    <div class="chat-container">
+        <div class="chat-header">
+            <h2>Spring WebSocket Chat Demo</h2>
+        </div>
+        <div class="connecting">
+            연결중...
+        </div>
+        <ul id="messageArea">
+
+        </ul>
+        <form id="messageForm" name="messageForm">
+            <div class="form-group">
+                <div class="input-group clearfix">
+                    <input type="text" id="message" placeholder="Type a message..." autocomplete="off" class="form-control"/>
+                    <button type="submit" class="primary">보내기</button>
+                </div>
+            </div>
+        </form>
+        <div>
+            <div id="dropzone" class="dropzone" style="height: 200px; overflow-y: scroll">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/chat/chat1.js"></script>
+</body>
+</html>
