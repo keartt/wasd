@@ -35,7 +35,8 @@ public class PageController {
     }
 
     @GetMapping("/main")
-    public String mainPage(){
+    public String mainPage(Model model, @AuthenticationPrincipal CustomOAuth2User oAuth2User){
+        model.addAttribute("oauth", oAuth2User.getUserInfo());
         return "/pages/main";
     }
 

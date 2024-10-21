@@ -8,24 +8,11 @@ $(function () {
     $('#profileImg').attr('src', oauthUserInfo.profileImg);
     gameInfoList = [];
 
-    // select 스타일 조정
-    $('#mbti, #yearOfBirth, #startTime, #endTime').on('change', function () {
-        if ($(this).val() == '') {
-            $(this).css('color', 'rgba(211, 211, 211, 0.5)');
-        } else {
-            $(this).css('color', 'lightgrey');
-        }
-    });
-    $('#mbti, #yearOfBirth, #startTime, #endTime').trigger('change');
-
     // 게임 정보 게임 선택
     $(document).on('click', '.profile-info-game-box .profile-info-game-btn', function () {
         // 변경된 경우에만 적용
         if ($(this).hasClass('select'))
             return;
-
-        // $('.profile-info-game-box .profile-info-game-btn').removeClass('select');
-        // $(this).addClass('select');
         changeGameAttr($(this).attr('id'));
     });
 
@@ -188,8 +175,6 @@ function addPopupGameInfo() {
 
     openGameInfoPopupCheck();   //  게임 추가 버튼 출력 여부
     closeGameInfoPopup();       //  팝업 게임 선택창 닫기
-
-
 }
 
 // 게임 제거
@@ -335,7 +320,7 @@ function changeGameAttr(gameId) {
     });
 }
 
-
+// 회원가입
 function userInfoSave(){
 
     if(gameInfoList.length === 0){
@@ -343,17 +328,14 @@ function userInfoSave(){
         return;
     }
 
-    var startTime = $('#startTime').val() ? $('#startTime').val().padStart(2, '0') + ":00" : null;
-    var endTime = $('#endTime').val() ? $('#endTime').val().padStart(2, '0') + ":00" : null;
-
     // 사용자 정보
     var userInfoData = {
         nickname: $('#nickname').val(),
         yearOfBirth: parseInt($('#yearOfBirth').val(), 10),
 
         mbti: $('#mbti').val() === '' ? null : $('#mbti').val(),
-        startTime: startTime,
-        endTime: endTime,
+        startTime: $('#startTime').val() === '' ? null : $('#startTime').val(),
+        endTime: $('#endTime').val() === '' ? null : $('#endTime').val(),
         profileImg : $('#profileImg').attr('src'),
         gameInfoList : gameInfoList
     };
@@ -374,6 +356,4 @@ function userInfoSave(){
             alert(errorMessage);
         }
     });
-
-
 }

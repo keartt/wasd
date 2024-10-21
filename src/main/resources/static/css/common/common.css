@@ -268,5 +268,5 @@ select {
     display: flex;
     flex: 1;
     flex-direction: column;
-    padding: 20px;
+    /*padding: 20px;*/
 }
