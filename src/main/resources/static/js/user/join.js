@@ -1,12 +1,12 @@
 let gameInfoCount = 0;
-let gameInfoList = [];
+let saveGameInfoList = [];
 $(function () {
 
     // 프로필 기본 정보 설정
     $('#email').val(oauthUserInfo.email);
     $('#nickname').val(oauthUserInfo.nickname);
     $('#profileImg').attr('src', oauthUserInfo.profileImg);
-    gameInfoList = [];
+    saveGameInfoList = [];
 
     // 게임 정보 게임 선택
     $(document).on('click', '.profile-info-game-box .profile-info-game-btn', function () {
@@ -27,6 +27,22 @@ $(function () {
     $(document).on('click', '.gameInfo-popup-gamebox .profile-info-game-btn', function () {
         $('.gameInfo-popup-gamebox .profile-info-game-btn').removeClass('select');
         $(this).addClass('select');
+    });
+
+    // 게임 속성 변경 시 데이터 저장
+    $(document).on('change', '.gameInfo-select', function () {
+        saveGameAttr();
+    });
+
+    // 성격 유형 option 추가
+    $.ajax({
+        url: '/user/mbti',
+        type: 'get',
+        success: function (res) {
+            res.forEach(function (mbti) {
+                $('#mbti').append(`<option value="${mbti}">${mbti}</option>`);
+            });
+        }
     });
 
     // 파일 업로드 클릭 이벤트
@@ -51,24 +67,9 @@ $(function () {
         }
     });
 
-    // 게임 속성 변경 시 데이터 저장
-    $(document).on('change', '.gameInfo-select', function () {
-        saveGameAttr();
-    });
-
-    // 성격 유형 option 추가
-    $.ajax({
-        url: '/user/mbti',
-        type: 'get',
-        success: function (res) {
-            res.forEach(function (mbti) {
-                $('#mbti').append(`<option value="${mbti}">${mbti}</option>`);
-            });
-        }
-    });
-
 });
 
+// STEP 변경 이벤트
 function changeStep(stepVal) {
 
     // 사용자 정보 유효성검사
@@ -94,9 +95,7 @@ function changeStep(stepVal) {
             }
         ];
 
-        if (!validation(fields)) {
-            return;
-        }
+        if (!validation(fields)) { return; }
     }
 
     $('.profile-info-box').css('display', 'none');  // info-box 제거
@@ -111,6 +110,7 @@ function changeStep(stepVal) {
     }
 }
 
+// 게임 목록 팝업 열기
 function openGameInfoPopup() {
     // 기존 박스 정보 조회
     var gameArr = [];
@@ -160,7 +160,6 @@ function addPopupGameInfo() {
         return;
     }
 
-    var gameCount = $('#profile-info-game-box .profile-info-game-btn').length;
     var gameId = selectGameInfo.attr('id').split('-')[1];
     var addTag = `
         <button class="profile-info-game-btn" id="${gameId}">
@@ -170,8 +169,7 @@ function addPopupGameInfo() {
     `;
     $('#profile-info-game-box').append(addTag);
 
-    // 추가한 첫번째 게임은 속성까지 같이 출력
-    changeGameAttr(gameId);
+    changeGameAttr(gameId);     // 속성 추가
 
     openGameInfoPopupCheck();   //  게임 추가 버튼 출력 여부
     closeGameInfoPopup();       //  팝업 게임 선택창 닫기
@@ -180,9 +178,9 @@ function addPopupGameInfo() {
 // 게임 제거
 function deleteGameInfo(gameId) {
 
-    var delGameIndex = gameInfoList.findIndex(game => game.gameId === gameId);  // // 저장 데이터 삭제
+    var delGameIndex = saveGameInfoList.findIndex(game => game.gameId === gameId);  // 저장 데이터 삭제
     if (delGameIndex >= 0) {
-        gameInfoList.splice(delGameIndex, 1);
+        saveGameInfoList.splice(delGameIndex, 1);
     }
 
     var delGameId = $('.profile-info-game-box .profile-info-game-btn.select').attr('id');
@@ -200,14 +198,7 @@ function deleteGameInfo(gameId) {
     }
 }
 
-// 게임 추가 버튼 출력 여부
-function openGameInfoPopupCheck() {
-    if ($('.profile-info-game-box .profile-info-game-btn').length === gameInfoCount) {
-        $('#game-add-btn').hide();
-    } else {
-        $('#game-add-btn').show();
-    }
-}
+
 
 // 게임 속성 저장
 function saveGameAttr(){
@@ -227,11 +218,11 @@ function saveGameAttr(){
     });
 
     // 이미 저장된 게임이 있는지 확인 (배열에서 찾아서 업데이트)
-    var existingGameIndex = gameInfoList.findIndex(game => game.gameId === selectGameId);
+    var existingGameIndex = saveGameInfoList.findIndex(game => game.gameId === selectGameId);
     if (existingGameIndex !== -1) { // 기존에 저장된 게임 정보 업데이트
-        gameInfoList[existingGameIndex] = currentGameInfo;
+        saveGameInfoList[existingGameIndex] = currentGameInfo;
     } else {    // 새로운 게임 정보 추가
-        gameInfoList.push(currentGameInfo);
+        saveGameInfoList.push(currentGameInfo);
     }
 
 }
@@ -252,7 +243,7 @@ function changeGameAttr(gameId) {
     $(`#${gameId}`).addClass('select');
 
 
-    var savedGameInfo = gameInfoList.find(game => game.gameId === gameId);
+    var savedGameInfo = saveGameInfoList.find(game => game.gameId === gameId);
 
     // select optiop 체크 여부
     function gameAttrSelectCheck(key, optionKey) {
@@ -323,7 +314,7 @@ function changeGameAttr(gameId) {
 // 회원가입
 function userInfoSave(){
 
-    if(gameInfoList.length === 0){
+    if(saveGameInfoList.length === 0){
         alert('선호하는 게임을 선택하세요.');
         return;
     }
@@ -337,7 +328,7 @@ function userInfoSave(){
         startTime: $('#startTime').val() === '' ? null : $('#startTime').val(),
         endTime: $('#endTime').val() === '' ? null : $('#endTime').val(),
         profileImg : $('#profileImg').attr('src'),
-        gameInfoList : gameInfoList
+        gameInfoList : saveGameInfoList
     };
 
 
@@ -356,4 +347,13 @@ function userInfoSave(){
             alert(errorMessage);
         }
     });
+}
+
+// 게임 추가 버튼 출력 여부
+function openGameInfoPopupCheck() {
+    if ($('.profile-info-game-box .profile-info-game-btn').length === gameInfoCount) {
+        $('#game-add-btn').hide();
+    } else {
+        $('#game-add-btn').show();
+    }
 }
