@@ -218,7 +218,7 @@ function saveGameAttr(){
     });
 
     // 이미 저장된 게임이 있는지 확인 (배열에서 찾아서 업데이트)
-    var existingGameIndex = saveGameInfoList.findIndex(game => game.gameId === selectGameId);
+    var existingGameIndex = saveGameInfoList.findIndex(game => game.gameId == selectGameId);
     if (existingGameIndex !== -1) { // 기존에 저장된 게임 정보 업데이트
         saveGameInfoList[existingGameIndex] = currentGameInfo;
     } else {    // 새로운 게임 정보 추가

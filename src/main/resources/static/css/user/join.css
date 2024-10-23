@@ -104,7 +104,7 @@
 }
 
 .profile-info-game-box::-webkit-scrollbar {
-    height: 8px;
+    height: 5px;
     border-radius: 20px;
 }
 
@@ -128,10 +128,8 @@
     border: none;
     cursor: pointer;
     border-radius: 20px;
-    /*min-height: 50px;*/
-    /*min-width: 50px;*/
-    height: 50px;
-    width: 50px;
+    min-height: 50px;
+    min-width: 50px;
 }
 
 .profile-info-game-btn.select {
@@ -238,7 +236,7 @@
     overflow-y: auto;
     white-space: nowrap;
     margin: 10px 0 20px 0;
-    height: 200px;
+    max-height: 200px;
 }
 
 .gameInfo-popup-gamebox .profile-info-game-btn {

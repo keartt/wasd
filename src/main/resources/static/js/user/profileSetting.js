@@ -1,7 +1,21 @@
 var userInfo = {};
-var gameInfoList = [];
-let saveGameInfoList = [];
+let gameInfoList = [];
+var saveGameInfoList = [];
 $(function () {
+
+    saveGameInfoList = [];
+
+    // 성격 유형 option 추가
+    $.ajax({
+        url: '/user/mbti',
+        type: 'get',
+        async : false,
+        success: function (res) {
+            res.forEach(function (mbti) {
+                $('#mbti').append(`<option value="${mbti}">${mbti}</option>`);
+            });
+        }
+    });
 
     // 사용자 정보 조회
     $.ajax({
@@ -40,18 +54,6 @@ $(function () {
         saveGameAttr();
     });
 
-    // 성격 유형 option 추가
-    $.ajax({
-        url: '/user/mbti',
-        type: 'get',
-        async : false,
-        success: function (res) {
-            res.forEach(function (mbti) {
-                $('#mbti').append(`<option value="${mbti}">${mbti}</option>`);
-            });
-        }
-    });
-
     // 파일 업로드 클릭 이벤트
     $('#profileImgUploadBtn').on('click', function () {
         $('#profileImgFile').click();
@@ -73,6 +75,8 @@ $(function () {
             reader.readAsDataURL(file);
         }
     });
+
+    getGameInfo();  // 게임 정보 조회
 
 });
 
@@ -104,9 +108,10 @@ function changeStep(stepVal) {
         ];
         if (!validation(fields)) { return; }
 
-        saveUserInfo(); // 사용자 정보 변경된 값 저장
-        getGameInfo();  // 게임 정보 조회
+        saveUserInfo(true); // 사용자 정보 변경된 값 저장
+
         getGameInfoUser();  // 사용자 게임 정보 조회
+
     }
 
     $('.profile-info-box').css('display', 'none');  // info-box 제거
@@ -129,8 +134,8 @@ function setUserInfoField(paramUserInfo){
     }, 1);
 }
 
-// 사용자 정보 저장
-function saveUserInfo(){
+// 사용자 정보 저장 (changeCheck : 변경 내역 확인 여부)
+function saveUserInfo(changeCheck){
     // 값 변경 확인
     var userInfoData = {};
     var userInfoChangeCount = 0;
@@ -148,12 +153,7 @@ function saveUserInfo(){
         }
     }
 
-    console.log(userInfo);
-    console.log(userInfoData);
-    console.log(userInfoChangeCount);
-
-    if(userInfoChangeCount > 0  && confirm('변경된 프로필 정보를 적용하시겠습니까?')){  // 사용자 정보 수정
-
+    function sendUserInfo() {
         $.ajax({
             url: '/user/',
             type: 'PUT',
@@ -164,14 +164,28 @@ function saveUserInfo(){
             success: function (res) {
                 userInfo = res;
                 setUserInfoField(userInfo);
+                if (!changeCheck) {
+                    alert('프로필 정보가 성공적으로 저장되었습니다.');
+                }
             },
             error: function (xhr) {
                 alert(xhr.responseJSON?.message || '서버 오류가 발생했습니다. 다시 시도해 주세요.');
-                setUserInfoField(userInfo); // 수정 취소 -> 기존 값으로 리셋
+                if (changeCheck) {
+                    setUserInfoField(userInfo); // 수정 취소 -> 기존 값으로 리셋
+                }
             }
         });
-    } else{
-        setUserInfoField(userInfo); // 수정 취소 -> 기존 값으로 리셋
+    }
+
+    // 변경 내역 확인 후 진행
+    if (changeCheck) {
+        if (userInfoChangeCount > 0 && confirm('변경된 프로필 정보를 적용하시겠습니까?')) {
+            sendUserInfo(); // 변경된 정보 저장 요청
+        } else {
+            setUserInfoField(userInfo); // 수정 취소 -> 기존 값으로 리셋
+        }
+    } else {
+        sendUserInfo(); // 변경 사항 없이 저장 요청
     }
 }
 
@@ -184,7 +198,6 @@ function getGameInfo(){
         async: false,
         success: function (res) {
             gameInfoList = res;
-            console.log(gameInfoList);
         },
         error: function (err) {
             alert('게임 정보 조회 중 문제가 발생하였습니다. 잠시 후 다시 시도하세요.');
@@ -194,24 +207,39 @@ function getGameInfo(){
 
 // 사용자 게임 정보 조회
 function getGameInfoUser(){
+    saveGameInfoList = []; // 초기화
+    $('.profile-info-gameAttr-box').empty();
+    $('#profile-info-game-box').empty();
+
     $.ajax({
         url: '/gameInfo/user',
         type: 'GET',
         dataType: 'json',
         async: false,
         success: function (res) {
-            $('#profile-info-game-box').empty();
             res.forEach(function (item, index) {
-                addGameBtn(item.gameId);
+
+                $.ajax({
+                    url: '/gameInfo/user/game',
+                    type: 'GET',
+                    data: {
+                        gameId: item.gameId
+                    },
+                    async: false,
+                    success: function (gameAttrRes) {
+                        saveGameInfoList.push(gameAttrRes);
+                    }
+                });
+
+                addGameBtn(item.gameId);    // 게임 버튼 추가
                 if(index == 0){
-                    changeGameAttr(item.gameId);
+                    changeGameAttr(item.gameId); // 첫 번째 게임의 속성 추가
+                    openGameInfoPopupCheck();
                 }
             });
         },
         error: function (xhr) {
             alert(xhr.responseJSON?.message || '서버 오류가 발생했습니다. 다시 시도해 주세요.');
-        }, complete() {
-            openGameInfoPopupCheck();
         }
     });
 }
@@ -226,8 +254,6 @@ function addGameBtn(gameId) {
     `;
     $('#profile-info-game-box').append(addTag);
 }
-
-
 
 // 게임 목록 팝업 열기
 function openGameInfoPopup() {
@@ -293,13 +319,6 @@ function addPopupGameInfo() {
 
 // 게임 제거
 function deleteGameInfo(gameId) {
-    //
-    // var gameNm = gameInfoList.find(item => item.gameId === gameId).gameNm;
-    // if(!confirm(`선호 게임 ${gameNm} 정보를 삭제하시겠습니까?\n입력한 내용은 모두 초기화되며, 이 작업은 되돌릴 수 없습니다.`)){
-    //     return;
-    // }
-
-
     var delGameIndex = saveGameInfoList.findIndex(game => game.gameId === gameId);  // 저장 데이터 삭제
     if (delGameIndex >= 0) {
         saveGameInfoList.splice(delGameIndex, 1);
@@ -320,8 +339,6 @@ function deleteGameInfo(gameId) {
     }
 }
 
-
-
 // 게임 속성 저장
 function saveGameAttr(){
     var selectGameId = $('.profile-info-game-box .profile-info-game-btn.select').attr('id');
@@ -340,7 +357,7 @@ function saveGameAttr(){
     });
 
     // 이미 저장된 게임이 있는지 확인 (배열에서 찾아서 업데이트)
-    var existingGameIndex = saveGameInfoList.findIndex(game => game.gameId === selectGameId);
+    var existingGameIndex = saveGameInfoList.findIndex(game => game.gameId == selectGameId);
     if (existingGameIndex !== -1) { // 기존에 저장된 게임 정보 업데이트
         saveGameInfoList[existingGameIndex] = currentGameInfo;
     } else {    // 새로운 게임 정보 추가
@@ -364,29 +381,11 @@ function changeGameAttr(gameId){
     $('.profile-info-game-box .profile-info-game-btn').removeClass('select');
     $(`#${gameId}`).addClass('select');
 
-
-    var savedGameInfo;
-    var existingGameIndex = saveGameInfoList.findIndex(game => game.gameId === selectGameId);
-    if (existingGameIndex == -1) {
-        savedGameInfo = saveGameInfoList.find(game => game.gameId === gameId);  // DB에서 조회
-    } else {
-        $.ajax({
-            url: '/gameInfo/user/game',
-            type: 'GET',
-            data: {
-                gameId: gameId
-            },
-            async: false,
-            success: function (res) {
-                savedGameInfo = res;
-            }
-        });
-    }
-    console.log(savedGameInfo);
+    var savedGameInfo = saveGameInfoList.find(game => game.gameId === gameId);
 
     // select optiop 체크 여부
     function gameAttrSelectCheck(key, optionKey) {
-        if (Object.keys(savedGameInfo).length === 0)
+        if (!savedGameInfo)
             return '';
 
         var savedInfo = savedGameInfo.info;
@@ -442,6 +441,7 @@ function changeGameAttr(gameId){
             if ($colDiv.children().length > 0) {
                 $gameAttrBox.append($colDiv);
             }
+
         }, complete(){
             saveGameAttr(); // 새로운 게임 option 생성 후 디폴트 값 저장
         }
@@ -460,4 +460,26 @@ function openGameInfoPopupCheck() {
     } else {
         $('#game-add-btn').show();
     }
+}
+
+function saveUserGameInfo(){
+    if(saveGameInfoList.length === 0){
+        alert('선호하는 게임을 선택하세요.');
+        return;
+    }
+    $.ajax({
+        url: '/gameInfo/user/game',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(saveGameInfoList),
+        dataType: 'json',
+        async: false,
+        success: function (res) {
+            alert('게임 정보가 성공적으로 저장되었습니다.');
+            $('.profile-info-game-box .profile-info-game-btn').first().trigger('click');    // 첫번째 게임에 select 옵션 추가
+        },
+        error: function (xhr) {
+            alert(xhr.responseJSON?.message || '서버 오류가 발생했습니다. 다시 시도해 주세요.');
+        }
+    });
 }
