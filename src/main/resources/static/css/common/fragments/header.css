@@ -10,14 +10,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow-y: auto;
     padding: 18px 0 18px 0;
-    -ms-overflow-style: none;
+    /*overflow-y: auto;*/
+    /*-ms-overflow-style: none;*/
 }
 
-.groups::-webkit-scrollbar {
-    display: none;
-}
+/*.groups::-webkit-scrollbar {*/
+/*    display: none;*/
+/*}*/
 
 
 /* GROUP */
@@ -56,7 +56,15 @@
         object-fit: contain;
         max-height: 100%;
     }
+    &.profile-setting{
+        text-align: center;
+        font-size: 22px;
 
+        &.active::before {
+            display: none;
+        }
+
+    }
     &.group-main {
         margin-bottom: 46px;
         text-align: center;
@@ -79,14 +87,8 @@
             border-bottom: 2px solid var(--group-bg);
         }
     }
-    &.profile-setting{
-        text-align: center;
-        font-size: 22px;
-
-        &.active::before {
-            display: none;
-        }
-
+    &.logout{
+        margin:0;
     }
 
     /* unread/active */
@@ -120,4 +122,15 @@
     &.active.unread::before {
         transition: all 0.2s ease-in-out;
     }
+}
+
+#myGroups{
+    height: calc(100vh - 248px);
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    margin-bottom: 8px;
+}
+
+#myGroups::-webkit-scrollbar {
+    display: none;
 }

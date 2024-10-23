@@ -38,18 +38,19 @@
     display: flex;
     align-items: center;
     text-align: center;
+    padding: 0 50px;
 }
 
 .login-box .login-sns-bar::before,
 .login-box .login-sns-bar::after {
     content: "";
     flex: 1;
-    border-bottom: 1px solid var(--server-marker-active);
+    border-bottom: 1px solid var(--group-marker-active);
     margin: 0 10px; /* 선과 텍스트 간의 간격 */
 }
 
 .login-box .login-sns-bar span {
-    color: var(--server-marker-active);
+    color: var(--group-marker-active);
     white-space: nowrap; /* 텍스트가 줄 바꿈되지 않도록 */
 }
 

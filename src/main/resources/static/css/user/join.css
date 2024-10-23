@@ -1,10 +1,33 @@
 /* 프로필 전제 박스*/
-.profile-box {
-    padding: 100px 0;
+.profile-container{
     display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100%;
-    width: 800px;
-    margin: 0 auto;
+    overflow-y: auto;
+}
+
+.profile-container::-webkit-scrollbar {
+    width: 0px;
+}
+
+.profile-container::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.profile-container::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+
+.profile-container::-webkit-scrollbar-button {
+    display: none;
+}
+
+
+.profile-box {
+    display: flex;
+    height: 600px;
+    width: 1000px;
 }
 
 /* 좌측 step 박스*/
@@ -13,7 +36,6 @@
     width: 100px;
     display: flex;
     flex-direction: column;
-    padding: 50px 0;
     align-items: center;
 }
 
@@ -37,7 +59,7 @@
 
 /* 프로필 박스 */
 .profile-info-box {
-    padding: 50px;
+    padding: 0 50px;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -61,7 +83,7 @@
 /*프로필 다음 스텝 버튼 */
 .profile-info-btn-box {
     border-top: 1px solid var(--input-bg);
-    padding: 50px 0;
+    padding: 50px 0 30px 0;
     gap: 10px;
     display: flex;
 }
@@ -73,16 +95,16 @@
     display: flex;
     /*grid-template-columns: repeat(4, 1fr);*/
     gap: 20px;
-    max-width: 600px;
+    max-width: 800px;
     max-height: 80px;
-    padding: 10px 15px 70px 15px;
+    padding: 10px 15px 60px 15px;
     overflow-x: auto;
     overflow-y: hidden;
     white-space: nowrap;
 }
 
 .profile-info-game-box::-webkit-scrollbar {
-    height: 8px;
+    height: 5px;
     border-radius: 20px;
 }
 
@@ -214,6 +236,7 @@
     overflow-y: auto;
     white-space: nowrap;
     margin: 10px 0 20px 0;
+    max-height: 200px;
 }
 
 .gameInfo-popup-gamebox .profile-info-game-btn {
