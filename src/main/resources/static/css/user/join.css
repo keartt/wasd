@@ -246,16 +246,16 @@
 
 /* 프로필 이미지 */
 .profile-info-img-box {
-    width: 50%;
+    width: 30%;
     display: flex;
-    gap: 10px;
+    gap: 20px;
     flex-direction: column;
 }
 
 .profile-info-img-box #profileImg {
     border: var(--input-bg) 2px solid;
     border-radius: 10px;
-    height: 180px;
+    height: 220px;
     object-fit: contain;
     margin: 0 auto;
     max-width: 100%;

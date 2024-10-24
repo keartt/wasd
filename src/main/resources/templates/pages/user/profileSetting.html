@@ -2,8 +2,8 @@
 
     <div class="profile-box">
         <div class="profile-step-box" >
-            <button class="profile-step-btn active" id="profile-step-btn-1" onclick="changeStep(1)">1</button>
-            <button class="profile-step-btn" id="profile-step-btn-2" onclick="changeStep(2)">2</button>
+            <button class="profile-step-btn active" id="profile-step-btn-1" onclick="changeStep(this, 1)">1</button>
+            <button class="profile-step-btn" id="profile-step-btn-2" onclick="changeStep(this, 2)">2</button>
         </div>
 
         <!-- # step1 -->
@@ -16,7 +16,7 @@
             <div class="profile-info-input-box">
 
                 <div style="display: flex; gap: 20px; " >
-                    <div class="profile-info-input-box" style="width: 50%;">
+                    <div class="profile-info-input-box" style="width: 70%;">
                         <div class="input-wrapper">
                             <i class="fa-solid fa-envelope"></i>
                             <input type="text" id="email" th:name="email" placeholder="이메일" disabled />
@@ -44,6 +44,31 @@
                             </select>
                         </div>
 
+                        <div style="display: flex; gap: 10px;">
+                            <div class="input-wrapper" style="width: 50%;">
+                                <i class="fa-solid fa-hourglass-start"></i>
+                                <select id="startTime" name="startTime" class="new-select-style">
+                                    <option value="" selected>게임 시작 시간</option>
+                                    <option th:each="hour : ${#numbers.sequence(0, 23)}"
+                                            th:value="${#numbers.formatInteger(hour, 2)} + ':00:00'"
+                                            th:text="${hour} + '시'">
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="input-wrapper" style="width: 50%;">
+                                <i class="fa-solid fa-hourglass-end"></i>
+                                <select id="endTime" name="endTime" class="new-select-style">
+                                    <option value="" selected>게임 종료 시간</option>
+                                    <option th:each="hour : ${#numbers.sequence(0, 23)}"
+                                            th:value="${#numbers.formatInteger(hour, 2)} + ':00:00'"
+                                            th:text="${hour} + '시'">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+
                     </div>
                     <div class="profile-info-img-box">
                         <img id="profileImg" src="" />
@@ -53,36 +78,11 @@
                         </div>
                     </div>
                 </div>
-                <div style="display: flex; gap: 10px;">
-                    <div class="input-wrapper" style="width: 50%;">
-                        <i class="fa-solid fa-hourglass-start"></i>
-                        <select id="startTime" name="startTime" class="new-select-style">
-                            <option value="" selected>게임 시작 시간</option>
-                            <option th:each="hour : ${#numbers.sequence(0, 23)}"
-                                    th:value="${#numbers.formatInteger(hour, 2)} + ':00:00'"
-                                    th:text="${hour} + '시'">
-                            </option>
-                        </select>
-                    </div>
 
-                    <div class="input-wrapper" style="width: 50%;">
-                        <i class="fa-solid fa-hourglass-end"></i>
-                        <select id="endTime" name="endTime" class="new-select-style">
-                            <option value="" selected>게임 종료 시간</option>
-                            <option th:each="hour : ${#numbers.sequence(0, 23)}"
-                                    th:value="${#numbers.formatInteger(hour, 2)} + ':00:00'"
-                                    th:text="${hour} + '시'">
-                            </option>
-                        </select>
-                    </div>
-                </div>
 
             </div>
-<!--            <div class="profile-info-btn-box">-->
-<!--                <button class="bt" onclick="changeStep(2)">Next</button>-->
-<!--            </div>-->
             <div class="profile-info-btn-box">
-                <button class="bt bt-lightgray" onclick="changeStep(2)">Next</button>
+                <button class="bt bt-lightgray" onclick="changeStep(this, 2)">Next</button>
                 <button class="bt " onclick="saveUserInfo(false)">Save</button>
             </div>
 
@@ -110,8 +110,8 @@
             </div>
 
             <div class="profile-info-btn-box">
-                <button class="bt bt-lightgray" onclick="changeStep(1)">Previous</button>
-                <button class="bt " onclick="saveUserGameInfo()">Save</button>
+                <button class="bt bt-lightgray" onclick="changeStep(this, 1)">Previous</button>
+                <button class="bt " onclick="saveUserGameInfo(false)">Save</button>
             </div>
         </div>
 
@@ -140,4 +140,5 @@
 
 <link th:inline="css" th:href="@{/css/user/join.css}" rel="stylesheet"/>
 <script th:inline="javascript" type="text/javascript" th:src="@{/js/user/profileSetting.js}"></script>
+<script th:inline="javascript" type="text/javascript" th:src="@{/js/user/joinCommon.js}"></script>
 
