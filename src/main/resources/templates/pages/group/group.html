@@ -1,3 +1,56 @@
-<div>
-    <h1>Groups</h1>
+<div class="group-box">
+    <!-- # 선호 게임 선택창  -->
+    <div class="userGameInfo-box" >
+        <select class="userGameInfo-select">
+            <option>리그오브레전드</option>
+            <option>발로란트</option>
+        </select>
+
+        <button class="bt" style="color:white;" >
+            <i class="fa-solid fa-plus"></i>
+            그룹 생성
+        </button>
+    </div>
+
+    <!-- # 추천 그룹 -->
+    <div class="rcm-group-box">
+        <div class="rcm-group-title">
+            <span>💡 이런 그룹을 추천해요</span>
+        </div>
+
+        <div class="rcm-group-content">
+
+            <div th:each="i : ${#numbers.sequence(1, 7)}" class="rcm-group-item-box">
+                <div class="rcm-group-item-img">
+                    <img th:src="@{/images/gameImg/lol.png}">
+                </div>
+                <div class="rcm-group-item-dc-box">
+                    <div class="dc-title-box">
+                        <span>［</span>
+                        <div class="dc-title">자유랭 5인팟 구함 <span th:text="${i}">1</span></div>
+                        <span>］</span>
+                    </div>
+                    <div class="dc-content">
+                        그룹 설명이다
+                    </div>
+                    <div class="dc-limit">
+                        <div>
+                            <i class="fa-solid fa-user"></i>
+                            <span>5 / 10</span>
+                        </div>
+                        <div>
+                            <i class="fa-regular fa-clock"></i>
+                            <span>22:00 ~ 24:00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
 </div>
+
+<link th:inline="css" th:href="@{/css/group/group.css}" rel="stylesheet"/>
+<script th:inline="javascript" type="text/javascript" th:src="@{/js/group/group.js}"></script>

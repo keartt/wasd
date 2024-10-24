@@ -9,7 +9,8 @@ $(document).ready(function() {
         loadContentMain();
     });
 
-    $('#main-profile').trigger('click');    // 처음 active 추가
+    // $('#main-profile').trigger('click');    // 처음 active 추가
+    $('.group-main').trigger('click');    // 처음 active 추가
 });
 
 // 선택 페이지 로드
@@ -27,11 +28,11 @@ function loadContentMain(){
                 $('.content-main').html(response);
 
                 if (url === '/main/profile') {
-                    initProfileSettings();  // 프로필 관련 초기화
+                    initProfileSetting();  // 프로필 관련 초기화
                 } else if (url === '/main/group') {
-                    //initGroupSettings();    // 그룹 관련 초기화
+                    initGroup();    // 그룹 관련 초기화
                 } else if (url.startsWith('/main/group/')) {
-                    //initGroupDetailSettings();  // 그룹 상세 관련 초기화
+                    initGroupDetail();  // 그룹 상세 관련 초기화
                 }
             }
         });

@@ -3,7 +3,7 @@ var gameInfoList = [];
 var saveGameInfoList = [];
 var oriGameInfoList = [];
 
-function initProfileSettings() {
+function initProfileSetting() {
 
     initJoinCommon();
 
