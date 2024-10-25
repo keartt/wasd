@@ -129,6 +129,7 @@
     overflow-y: auto;
     -ms-overflow-style: none;
     margin-bottom: 8px;
+    min-height: 50px;
 }
 
 #myGroups::-webkit-scrollbar {

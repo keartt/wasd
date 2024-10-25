@@ -50,3 +50,8 @@ function setFieldValue(id, value){
         $field.val(value);
     }
 }
+
+// 팝업창 닫기
+function popupMainClose(){
+    $('.popup-main').removeClass('active');
+}
