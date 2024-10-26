@@ -45,8 +45,13 @@ function setFieldValue(id, value){
     }
 
     if($field.prop('tagName').toLowerCase() === 'img' ){
-        $field.attr('src', value);
+        $field.attr('src', value?value:'http://img1.kakaocdn.net/thumb/R640x640.q70/?fname=http://t1.kakaocdn.net/account_images/default_profile.jpeg');
     } else{
         $field.val(value);
     }
+}
+
+// 팝업창 닫기
+function popupMainClose(){
+    $('.popup-main').removeClass('active');
 }
