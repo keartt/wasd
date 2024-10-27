@@ -160,7 +160,7 @@ svg[id] {
     opacity: 0.5;
 }
 
-.input-wrapper input[type="text"], .input-wrapper select {
+.input-wrapper input[type="text"], .input-wrapper select, .input-wrapper textarea {
     padding: 10px 20px 10px 50px; /* 왼쪽에 아이콘 공간 확보 */
 }
 
@@ -305,7 +305,7 @@ select {
     z-index: 100;
     background: var(--back-bg);
     color: var(--body-color);
-    padding: 20px;
+    padding: 20px 20px 60px 20px;
     gap: 20px;
     flex-direction: column;
 }
@@ -331,4 +331,102 @@ select {
     flex: 1;
     display: flex;
     padding: 0 30px;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--input-bg) transparent;
+}
+
+.popup-main-box::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 20px;
+}
+
+.popup-main-box::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.popup-main-box::-webkit-scrollbar-thumb {
+    background-color: lightgray;
+    border-radius: 20px;
+}
+
+.popup-main-box::-webkit-scrollbar-button {
+    display: none;
+}
+
+
+/* 이미지 select */
+.custom-img-select {
+    position: relative;
+    display: inline-block;
+    width: 250px;
+}
+
+.custom-img-select .selected-item {
+    display: flex;
+    align-items: center;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    position: relative;
+    background-color: var(--input-bg);
+    width: 250px;
+    height: 40px;
+    border-radius: 20px;
+    box-sizing: border-box;
+    outline: none;
+    cursor: pointer;
+    gap: 10px;
+}
+
+.custom-img-select .selected-item span, .custom-img-select .dropdown div span{
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.custom-img-select .selected-item img {
+    object-fit: contain;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+}
+.custom-img-select .dropdown {
+    display: none;
+    position: absolute;
+    background-color: var(--input-bg);
+    color: white;
+    border: none;
+    /*border: 1px solid #ccc;*/
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 10;
+    width: 100%;
+    margin-top:5px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.custom-img-select .dropdown img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    object-fit: contain;
+    border-radius: 5px;
+}
+
+.custom-img-select .dropdown div {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.custom-img-select .dropdown div:hover {
+    background-color: var(--groups-bg);
+}
+
+.custom-img-select.open .dropdown {
+    display: block;
 }

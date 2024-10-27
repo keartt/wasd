@@ -6,7 +6,7 @@ function initGroup() {
 
 // 사용자 관심 게임 조회
 function getGameInfoUser(){
-    $('#dropdown').empty();
+    $('#userGameInfoSelect .dropdown').empty();
     $.ajax({
         url: '/gameInfo/user',
         type: 'GET',
@@ -16,7 +16,7 @@ function getGameInfoUser(){
             if (res.length > 0) {
                 // 첫 번째 데이터를 기본 선택값으로 설정
                 var firstItem = res[0];
-                $('#selectedItem').html('<img src="/images/gameImg/' + firstItem.gameId + '.png" /><span>' + firstItem.gameNm + '</span>');
+                $('#userGameInfoSelect #selectedItem').html('<img src="/images/gameImg/' + firstItem.gameId + '.png" /><span>' + firstItem.gameNm + '</span>');
 
                 // 드롭다운 목록에 항목 추가
                 var addTag = "";
@@ -25,9 +25,9 @@ function getGameInfoUser(){
                     <div data-value="${item.gameId}"><img src="/images/gameImg/${item.gameId}.png"/><span>${item.gameNm}</span></div>
                     `;
                 });
-                $('#dropdown').append(addTag);
+                $('#userGameInfoSelect .dropdown').append(addTag);
             } else {
-                $('#selectedItem').text('게임 선택');
+                $('#userGameInfoSelect #selectedItem').text('게임 선택');
             }
         },
         error: function (xhr) {
@@ -62,17 +62,17 @@ function recommendSlideEvent(){
 
 }
 
-// select
+// select 이벤트
 function userGameInfoSelectEvent(){
 
-    $('#userGameInfoSelect .selected-item').click(function () {
+    $('#userGameInfoSelect #selectedItem').click(function () {
         $('#userGameInfoSelect').toggleClass('open');
     });
 
     $('#userGameInfoSelect .dropdown div').click(function () {
         var selectedValue = $(this).data('value');
         var selectedText = $(this).text();
-        $('#selectedItem').html('<img src="/images/gameImg/' + selectedValue + '.png" />' + selectedText);
+        $('#userGameInfoSelect #selectedItem').html('<img src="/images/gameImg/' + selectedValue + '.png" />' + selectedText);
         $('#userGameInfoSelect').removeClass('open');
     });
 

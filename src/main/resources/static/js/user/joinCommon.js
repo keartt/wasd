@@ -34,7 +34,6 @@ function initJoinCommon(){
 // 게임 정보 게임 선택
 function clickInfoBoxGameBtn(){
     $(document).off('click', '.profile-info-game-box .profile-info-game-btn').on('click', '.profile-info-game-box .profile-info-game-btn', function () {
-        console.log('a');
         // 변경된 경우에만 적용
         if ($(this).hasClass('select'))
             return;
