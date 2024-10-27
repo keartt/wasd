@@ -1,22 +1,34 @@
 function initGroup() {
-
-    // getGameInfoUser();
+    getGameInfoUser();
     recommendSlideEvent();
-    userGameInfoSelectEvent();
+    userGameInfoSelectEvent();  // select
 }
 
 // 사용자 관심 게임 조회
 function getGameInfoUser(){
+    $('#dropdown').empty();
     $.ajax({
         url: '/gameInfo/user',
         type: 'GET',
         dataType: 'json',
         async: false,
         success: function (res) {
-            console.log(res);
-            res.forEach(function (item, index) {
+            if (res.length > 0) {
+                // 첫 번째 데이터를 기본 선택값으로 설정
+                var firstItem = res[0];
+                $('#selectedItem').html('<img src="/images/gameImg/' + firstItem.gameId + '.png" /><span>' + firstItem.gameNm + '</span>');
 
-            });
+                // 드롭다운 목록에 항목 추가
+                var addTag = "";
+                res.forEach(function (item) {
+                    addTag += `
+                    <div data-value="${item.gameId}"><img src="/images/gameImg/${item.gameId}.png"/><span>${item.gameNm}</span></div>
+                    `;
+                });
+                $('#dropdown').append(addTag);
+            } else {
+                $('#selectedItem').text('게임 선택');
+            }
         },
         error: function (xhr) {
             alert(xhr.responseJSON?.message || '서버 오류가 발생했습니다. 다시 시도해 주세요.');
@@ -24,7 +36,7 @@ function getGameInfoUser(){
     });
 }
 
-
+// 추천 그룹
 function recommendSlideEvent(){
     $('.rcm-group-item-list').slick({
         rows: 1,
@@ -50,8 +62,9 @@ function recommendSlideEvent(){
 
 }
 
-
+// select
 function userGameInfoSelectEvent(){
+
     $('#userGameInfoSelect .selected-item').click(function () {
         $('#userGameInfoSelect').toggleClass('open');
     });
@@ -63,10 +76,25 @@ function userGameInfoSelectEvent(){
         $('#userGameInfoSelect').removeClass('open');
     });
 
-    // 외부 클릭 시 dropdown 닫기
-    $(document).click(function (event) {
+    $('.group-box').click(function (event) {
         if (!$(event.target).closest('#userGameInfoSelect').length) {
             $('#userGameInfoSelect').removeClass('open');
+        }
+    });
+
+}
+
+// 그룹 생성 버튼
+function groupNew(){
+
+    $.ajax({
+        url: '/main/group/new',
+        method: 'GET',
+        success: function(response) {
+            $('.popup-main-box').html(response);
+            initGroupNew();
+        },complete() {
+            popupMainOpen();
         }
     });
 }

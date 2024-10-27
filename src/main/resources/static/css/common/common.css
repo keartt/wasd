@@ -330,4 +330,5 @@ select {
 .popup-main-box{
     flex: 1;
     display: flex;
+    padding: 0 30px;
 }

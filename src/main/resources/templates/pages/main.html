@@ -5,6 +5,9 @@
     <!-- 공통 설정 파일 삽입 -->
     <div th:replace="~{/common/fragments/config :: ConfigFragment}"/>
 
+    <script th:inline="javascript" type="text/javascript" th:src="@{/js/common/fragments/header.js}"></script>
+    <link th:inline="css" th:href="@{/css/common/fragments/header.css}" rel="stylesheet"/>
+
     <script th:inline="javascript">let oauthUserInfo = /*[[${oauth}]]*/ {};</script>
 </head>
 
@@ -23,9 +26,9 @@
             <button class="popup-main-close-btn" onclick="popupMainClose()"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="popup-main-box">
-            <div class="popup-main-content">
+<!--            <div class="popup-main-content">-->
 
-            </div>
+<!--            </div>-->
         </div>
     </div>
 

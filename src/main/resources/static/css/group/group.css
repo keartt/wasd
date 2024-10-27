@@ -8,20 +8,24 @@
 
 .userGameInfo-select .selected-item {
     display: flex;
-    /*justify-content: space-between;*/
     align-items: center;
     color: white;
     border: none;
     padding: 10px 20px;
     position: relative;
     background-color: var(--input-bg);
-    /*width: 250px;*/
+    width: 250px;
     height: 40px;
     border-radius: 20px;
     box-sizing: border-box;
     outline: none;
     cursor: pointer;
     gap: 10px;
+}
+
+.userGameInfo-select .selected-item span, .userGameInfo-select .dropdown div span{
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .userGameInfo-select .selected-item img {
@@ -68,6 +72,7 @@
 .userGameInfo-select.open .dropdown {
     display: block;
 }
+
 
 /* 전체 박스*/
 .group-box {
