@@ -1,25 +1,20 @@
 @charset "UTF-8";
 
 :root {
-    --body-bg: #121416;
     --body-color: #FFF;
 
-
     --border-accent: #26282B;
-    --chat-bg: #36393E;
-    --menu-bg: var(--chat-bg);
-
 
     --group-marker-unread: #8A8E94;
     --group-marker-active: #FFF;
     --button-bg: #2E3136;
     --button-bg-active: #383C3F;
-    --groups-bg-lightened: #24282B;
 
-    /*--groups-bg: #1E2124;*/
     --channels-bg: #323840;
     --group-bg: var(--channels-bg);
     --group-bg-active: #7289DA;
+    /*--group-detail-bg:#252D38;*/
+    --group-detail-bg:#36404B;
     --groups-bg: #202730;
     --input-bg: #3B4859;
     --back-bg: #2B3440;
@@ -39,7 +34,6 @@
 html, body {
     height: 100%;
     background: var(--back-bg);
-    /*background: var(--chat-bg);*/
     color: var(--body-color);
     font-size: 16px;
 }

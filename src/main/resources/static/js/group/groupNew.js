@@ -1,10 +1,11 @@
 function initGroupNew() {
-    groupImgUpload();   // 파일 업로드
+    groupImgUpload();       // 파일 업로드
     $('#groupImgResetBtn').click(); // 파일 리셋
     $('.groupNew-input-box .new-select-style').trigger('change');
 
-    groupNewGameSelect(); // select option구성
-    groupNewSelectEvent();
+    groupNewGameSelect();   // select option구성
+    groupNewSelectEvent();  // select 이벤트
+    groupNewSave();         // 그룹 저장
 }
 
 // 파일 업로드
@@ -88,6 +89,7 @@ function groupNewGameSelect() {
     });
 }
 
+// SELECT 이벤트
 function groupNewSelectEvent(){
     $('#groupNewGameSelect #selectedItem').click(function () {
         $('#groupNewGameSelect').toggleClass('open');
@@ -115,7 +117,7 @@ function groupNewSelectEvent(){
     });
 }
 
-
+// 게임 속성 조회 - select 옵션
 function getGameInfoAttr(targetGameId){
     $('.groupNew-gameAttr-box').empty();
 
@@ -166,4 +168,11 @@ function getGameInfoAttr(targetGameId){
         }
     });
 
+}
+
+// 그룹 저장
+function groupNewSave(){
+    $('#groupNewSave').click(function () {
+
+    });
 }

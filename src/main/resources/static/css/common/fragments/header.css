@@ -125,7 +125,8 @@
 }
 
 #myGroups{
-    height: calc(100vh - 248px);
+    /*height: calc(100vh - 248px);*/
+    height: calc(100vh - 212px);
     overflow-y: auto;
     -ms-overflow-style: none;
     margin-bottom: 8px;

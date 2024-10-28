@@ -54,6 +54,7 @@ function setFieldValue(id, value){
 // 팝업창 열기
 function popupMainOpen(){
     $('.popup-main').addClass('active');
+
 }
 // 팝업창 닫기
 function popupMainClose(){

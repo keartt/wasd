@@ -95,6 +95,10 @@ function groupNew(){
             initGroupNew();
         },complete() {
             popupMainOpen();
+
+            setTimeout(function() {
+                $('.popup-main-box').scrollTop(0);
+            }, 50);
         }
     });
 }
