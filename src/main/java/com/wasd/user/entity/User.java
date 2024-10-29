@@ -8,7 +8,7 @@ import lombok.*;
 import java.time.LocalTime;
 
 @Entity
-@Table(name="user_info")
+@Table(name = "user_info")
 @Builder
 @Getter
 @ToString
