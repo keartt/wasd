@@ -1,12 +1,16 @@
 package com.wasd.gameInfo.service;
 
 import com.wasd.gameInfo.dto.GameInfoDto;
+import com.wasd.gameInfo.dto.GroupGameInfoDto;
 import com.wasd.gameInfo.dto.UserGameInfoDto;
 import com.wasd.gameInfo.entity.GameInfo;
+import com.wasd.gameInfo.entity.GroupGameInfo;
 import com.wasd.gameInfo.entity.UserGameInfo;
 import com.wasd.gameInfo.repository.GameInfoRepository;
+import com.wasd.gameInfo.repository.GroupGameInfoRepository;
 import com.wasd.gameInfo.repository.UserGameInfoRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,6 +22,7 @@ import java.util.stream.Collectors;
 public class GameInfoService {
     private final GameInfoRepository gameInfoRepository;
     private final UserGameInfoRepository userGameInfoRepository;
+    private final GroupGameInfoRepository groupGameInfoRepository;
 
     public List<GameInfoDto> findGameInfo() {
         return gameInfoRepository.findAllGameIdAndGameNm()
@@ -126,5 +131,78 @@ public class GameInfoService {
         UserGameInfo save = userGameInfoRepository.save(deleted);
         return save.toDto();
     }
+
+
+    /**
+     * 그룹 아이디로 그룹_게임 정보 조회
+     * @param groupId 그룹 아이디
+     * @return GroupGameInfoDto
+     */
+    public GroupGameInfoDto findGroupGameInfo(Long groupId) {
+        return groupGameInfoRepository.findByGroupId(groupId)
+                .map(GroupGameInfo::toDto)
+                .orElseThrow(() -> new RuntimeException("그룹 아이디에 해당하는 정보가 없습니다."));
+    }
+
+    /**
+     * 게임 아이디로 그룹_게임 목록 조회
+     * @param gameId 게임 아이디
+     * @return List<GroupGameInfoDto>
+     */
+    public List<GroupGameInfoDto> findGroupGameListByGameId(String gameId){
+        return groupGameInfoRepository.findByGameInfo_GameId(gameId).stream()
+                .map(GroupGameInfo::toDto)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * 그룹게임정보 생성
+     * @param gameInfoDto 그룹이 선택한 게임 정보
+     * @param groupId 그룹 아이디
+     * @return 생성된 그룹게임정보
+     */
+    public GroupGameInfoDto insertGroupGameInfo(GameInfoDto gameInfoDto, Long groupId) {
+        // 혹시 만약 있다면 삭제 먼저
+        groupGameInfoRepository.findByGroupId(groupId).ifPresent(groupGameInfoRepository::delete);
+        GroupGameInfo save = GroupGameInfo.builder()
+                .groupId(groupId)
+                .gameInfo(gameInfoDto.toEntity())
+                .build();
+        return groupGameInfoRepository.save(save).toDto();
+    }
+
+    /**
+     * 그룹게임정보 수정
+     * @param gameInfoDto 그룹이 선택한 수정된 게임 정보
+     * @param groupId 그룹 아이디
+     * @return 수정된 그룹게임정보
+     */
+    public GroupGameInfoDto updateGroupGameInfo(GameInfoDto gameInfoDto, Long groupId) {
+
+        // 기존 그룹 게임 정보 조회
+        GroupGameInfo byGroupId = groupGameInfoRepository.findByGroupId(groupId)
+                .orElseThrow(() -> new RuntimeException("그룹 아이디에 해당하는 정보가 없습니다"));
+
+        // 기존 정보 업데이트
+        GroupGameInfo save = GroupGameInfo.builder()
+                .groupId(groupId)
+                .gameInfo(gameInfoDto.toEntity())
+                .build();
+        return groupGameInfoRepository.save(save).toDto();
+    }
+
+    /**
+     * 그룹게임정보 삭제
+     * @param groupId 그룹 아이디
+     * @return 삭제된 그룹게임정보
+     */
+    public GroupGameInfoDto deleteGroupGameInfo(Long groupId) {
+        // 기존 그룹 게임 정보 조회
+        GroupGameInfo delete = groupGameInfoRepository.findByGroupId(groupId)
+                .orElseThrow(() -> new RuntimeException("그룹 아이디에 해당하는 정보가 없습니다"));
+        groupGameInfoRepository.deleteByGroupId(groupId);
+        return delete.toDto();
+    }
+
 
 }
