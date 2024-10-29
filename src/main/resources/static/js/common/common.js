@@ -1,7 +1,7 @@
 $(function () {
     
     // select 스타일 적용
-    $(document).on('change', '.new-select-style', function () {
+    $(document).off('change', '.new-select-style').on('change', '.new-select-style', function () {
         if ($(this).val() == '') {
             $(this).css('color', 'rgba(211, 211, 211, 0.5)');
         } else {
@@ -51,7 +51,13 @@ function setFieldValue(id, value){
     }
 }
 
+// 팝업창 열기
+function popupMainOpen(){
+    $('.popup-main').addClass('active');
+
+}
 // 팝업창 닫기
 function popupMainClose(){
+    $('.popup-main-box').empty();
     $('.popup-main').removeClass('active');
 }

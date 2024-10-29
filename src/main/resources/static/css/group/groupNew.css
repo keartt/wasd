@@ -1,0 +1,77 @@
+.groupNew-box{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    margin:0 auto;
+    width: 100%;
+    max-width: 1000px;
+    height: 100%;
+    min-height: 1000px;
+}
+
+.groupNew-input-box{
+    display: flex; gap: 20px;
+}
+
+.groupNew-input-content{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.groupNew-input-img-box{
+    width: 30%;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+}
+
+.groupNew-input-img-box #groupImg {
+    border: var(--input-bg) 2px solid;
+    border-radius: 10px;
+    height: 220px;
+    object-fit: cover;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.groupNew-input-img-box #groupImgFile{
+    display: none;
+}
+
+.groupNew-input-img-box .groupNew-input-img-btn-box{
+    display: flex;
+    margin: 0 auto;
+    gap: 10px;
+}
+
+.groupNew-input-img-box #groupImgResetBtn{
+    background: none;
+    border: none;
+    color: white;
+    width: 40px;
+    cursor: pointer;
+}
+
+#groupDc_icon{
+    top: 18%;
+}
+
+#groupDc{
+    resize: none;
+    height: 100px;
+}
+
+
+
+.groupNew-gameAttr-box {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.groupNew-gameAttr-box-col {
+    display: flex;
+    gap: 10px;
+}

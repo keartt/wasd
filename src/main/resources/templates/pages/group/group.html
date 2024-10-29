@@ -1,16 +1,14 @@
 <div class="group-box">
     <!-- # 선호 게임 선택창  -->
     <div class="userGameInfo-box" >
-        <div class="userGameInfo-select" id="userGameInfoSelect">
-            <div class="selected-item" id="selectedItem">게임 선택</div>
-            <div class="dropdown">
-                <div data-value="lol"><img th:src="@{/images/gameImg/lol.png}"/>리그오브레전드</div>
-                <div data-value="valorant"><img th:src="@{/images/gameImg/valorant.png}"/>발로란트</div>
-                <div data-value="lostark"><img th:src="@{/images/gameImg/lostark.png}"/>로스트아크</div>
+        <div class="custom-img-select userGameInfo-select" id="userGameInfoSelect">
+            <div class="selected-item" id="selectedItem"></div>
+            <div class="dropdown" id="dropdown">
+
             </div>
         </div>
 
-        <button class="bt" style="color:white;" >
+        <button class="bt" style="color:white;" onclick="groupNew()">
             <i class="fa-solid fa-plus"></i>
             그룹 생성
         </button>
@@ -18,6 +16,7 @@
 
     <!-- # 추천 그룹 -->
     <div class="rcm-group-box">
+
         <div class="rcm-group-title">
             <i class="fa-solid fa-lightbulb" ></i>
             <span>이런 그룹을 추천해요</span>

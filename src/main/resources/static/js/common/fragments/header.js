@@ -1,7 +1,7 @@
 $(document).ready(function() {
     
     // loadContentMain();
-    $(document).on('click', '.group', function() {
+    $(document).off('click', '.group').on('click', '.group', function() {
         if($(this).hasClass('active')){ return; }
 
         $('.group').removeClass('active');
@@ -9,8 +9,8 @@ $(document).ready(function() {
         loadContentMain();
     });
 
-    // $('#main-profile').trigger('click');    // 처음 active 추가
-    $('.group-main').trigger('click');    // 처음 active 추가
+    // $('.group-main').trigger('click');    // 처음 active 추가
+    $('.group-detail').trigger('click');    // 처음 active 추가
 });
 
 // 선택 페이지 로드
@@ -26,7 +26,6 @@ function loadContentMain(){
             method: 'GET',
             success: function(response) {
                 $('.content-main').html(response);
-
                 if (url === '/main/profile') {
                     initProfileSetting();  // 프로필 관련 초기화
                 } else if (url === '/main/group') {

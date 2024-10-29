@@ -54,4 +54,9 @@ public class PageController {
     public String mainGroupDetailPage(@PathVariable Long groupId){
         return "/pages/group/groupDetail";
     }
+
+    @GetMapping("/main/group/new")
+    public String mainGroupNewPage(){
+        return "/pages/group/groupNew";
+    }
 }

@@ -1,0 +1,85 @@
+<div class="groupNew-box">
+
+    <h1>그룹 정보</h1>
+
+    <div class="groupNew-input-box">
+
+        <div class="groupNew-input-content">
+            <div class="input-wrapper">
+                <i class="fa-solid fa-user-group"></i>
+                <input type="text" id="groupNm" th:name="groupNm" placeholder="그룹명 *" />
+            </div>
+
+            <div class="input-wrapper">
+                <i class="fa-solid fa-comment" id="groupDc_icon"></i>
+                <textarea id="groupDc" name="groupDc"  placeholder="그룹 설명 *"></textarea>
+<!--                <input type="text" id="groupDc" name="groupDc" placeholder="그룹 설명 *"/>-->
+            </div>
+
+            <div class="input-wrapper">
+                <i class="fa-solid fa-circle-minus"></i>
+                <input type="text" id="maxUserCount" name="maxUserCount" placeholder="인원수 *"/>
+            </div>
+
+
+            <div style="display: flex; gap: 10px;">
+                <div class="input-wrapper" style="width: 50%;">
+                    <i class="fa-solid fa-hourglass-start"></i>
+                    <select id="startTime" name="startTime" class="new-select-style">
+                        <option value="" selected>게임 시작 시간</option>
+                        <option th:each="hour : ${#numbers.sequence(0, 23)}"
+                                th:value="${#numbers.formatInteger(hour, 2)} + ':00:00'"
+                                th:text="${hour} + '시'">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="input-wrapper" style="width: 50%;">
+                    <i class="fa-solid fa-hourglass-end"></i>
+                    <select id="endTime" name="endTime" class="new-select-style">
+                        <option value="" selected>게임 종료 시간</option>
+                        <option th:each="hour : ${#numbers.sequence(0, 23)}"
+                                th:value="${#numbers.formatInteger(hour, 2)} + ':00:00'"
+                                th:text="${hour} + '시'">
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+        <div class="groupNew-input-img-box">
+            <img id="groupImg" />
+            <div class="groupNew-input-img-btn-box" >
+                <button id="groupImgUploadBtn" class="bt" >파일 업로드</button>
+                <button id="groupImgResetBtn" ><i class="fa-solid fa-arrow-rotate-right"></i></button>
+                <input type="file" id="groupImgFile" name="groupImgFile" accept="image/*" >
+            </div>
+        </div>
+
+    </div>
+
+    <h1>게임 정보</h1>
+
+    <div class="custom-img-select groupNew-game-select" id="groupNewGameSelect">
+        <div class="selected-item" id="selectedItem"></div>
+        <div class="dropdown" id="dropdown">
+
+        </div>
+    </div>
+
+    <!-- 게임 속성   -->
+    <div class="groupNew-gameAttr-box">
+
+    </div>
+
+    <!-- 저장 버튼 -->
+    <div>
+        <button class="bt" id="groupNewSave" >SAVE</button>
+    </div>
+
+</div>
+
+
+
+<link th:inline="css" th:href="@{/css/group/groupNew.css}" rel="stylesheet"/>
+<script th:inline="javascript" type="text/javascript" th:src="@{/js/group/groupNew.js}"></script>

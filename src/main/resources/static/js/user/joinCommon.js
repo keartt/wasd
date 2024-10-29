@@ -1,4 +1,4 @@
-const userJoinfields = [
+var userJoinfields = [
     {
         id: 'email',
         name: '이메일',
@@ -33,7 +33,7 @@ function initJoinCommon(){
 
 // 게임 정보 게임 선택
 function clickInfoBoxGameBtn(){
-    $(document).on('click', '.profile-info-game-box .profile-info-game-btn', function () {
+    $(document).off('click', '.profile-info-game-box .profile-info-game-btn').on('click', '.profile-info-game-box .profile-info-game-btn', function () {
         // 변경된 경우에만 적용
         if ($(this).hasClass('select'))
             return;
@@ -43,7 +43,7 @@ function clickInfoBoxGameBtn(){
 
 //  팝업 게임 선택
 function clickPopupBoxGameBtn(){
-    $(document).on('click', '.gameInfo-popup-gamebox .profile-info-game-btn', function () {
+    $(document).off('click', '.gameInfo-popup-gamebox .profile-info-game-btn').on('click', '.gameInfo-popup-gamebox .profile-info-game-btn', function () {
         $('.gameInfo-popup-gamebox .profile-info-game-btn').removeClass('select');
         $(this).addClass('select');
     });
@@ -60,7 +60,7 @@ function closeGameInfoPopupTarget(){
 
 // 게임 속성 변경 시 데이터 저장
 function changeGameInfoSelect(){
-    $(document).on('change', '.gameInfo-select', function () {
+    $(document).off('change', '.gameInfo-select').on('change', '.gameInfo-select', function () {
         saveGameAttr();
     });
 }
