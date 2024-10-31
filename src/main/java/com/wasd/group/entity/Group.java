@@ -1,5 +1,6 @@
 package com.wasd.group.entity;
 
+import com.wasd.gameInfo.dto.GameInfoDto;
 import com.wasd.group.dto.GroupDto;
 import jakarta.persistence.*;
 import lombok.*;
@@ -42,7 +43,7 @@ public class Group {
     @Column(name = "end_time")
     private LocalTime endTime;
 
-    public GroupDto toDto(){
+    private GroupDto.GroupDtoBuilder commonBuilder() {
         return GroupDto.builder()
                 .groupId(this.groupId)
                 .groupNm(this.groupNm)
@@ -50,7 +51,18 @@ public class Group {
                 .groupImg(this.groupImg)
                 .maxUserCount(this.maxUserCount)
                 .startTime(this.startTime)
-                .endTime(this.endTime)
+                .endTime(this.endTime);
+    }
+
+    public GroupDto toDto(){
+        return commonBuilder().build();
+    }
+
+    public GroupDto toDto(GameInfoDto gameInfo) {
+        return commonBuilder()
+                .gameInfo(gameInfo) // gameInfo 추가 설정
                 .build();
     }
+
+
 }
