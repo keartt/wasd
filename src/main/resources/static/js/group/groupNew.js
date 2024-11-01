@@ -57,7 +57,7 @@ function groupImgUpload() {
 function groupNewGameSelect() {
     $('#groupNewGameSelect .dropdown').empty();
     $.ajax({
-        url: '/gameInfo',
+        url: '/gameInfo/user',
         type: 'GET',
         dataType: 'json',
         async: false,
@@ -66,7 +66,7 @@ function groupNewGameSelect() {
 
                 // 첫 번째 데이터를 기본 선택값으로 설정
                 var firstItem = res[0];
-                $('#groupNewGameSelect #selectedItem').html('<img src="/images/gameImg/' + firstItem.gameId + '.png" /><span>' + firstItem.gameNm + '</span>');
+                $('#groupNewGameSelect #selectedItem').html('<img src="/images/gameImg/' + firstItem.gameId + '.png" /><span id="'+ firstItem.gameId +'">' + firstItem.gameNm + '</span>');
 
 
                 // 드롭다운 목록에 항목 추가
@@ -173,6 +173,77 @@ function getGameInfoAttr(targetGameId){
 // 그룹 저장
 function groupNewSave(){
     $('#groupNewSave').click(function () {
+
+        var groupfields = [
+            {
+                id: 'groupNm',
+                name: '그룹명',
+                pattern: /^[가-힣A-Za-z0-9._%+\-\s]{1,30}$/, // 그룹명은 1~30자 이내의 한글, 영어, 숫자 및 특수문자
+                message: '그룹명은 1자 이상 30자 이하로 입력해야 하며, 한글과 영문, 숫자만 허용됩니다.'
+            },
+            {
+                id: 'groupDc',
+                name: '그룹 설명',
+                pattern: null,
+                message: null
+            },
+            {
+                id: 'maxUserCount',
+                name: '인원수',
+                pattern: /^(1|[2-9][0-9]*|[1-9][0-9]{2,})$/, // 1 이상의 숫자만 허용
+                message: '인원수는 1 이상의 숫자만 허용됩니다.'
+            }
+        ];
+        if (!validation(groupfields)) { return; }
+
+        var groupNewAttrInfo = {};
+        $('.groupNew-gameAttr-box select').each(function () {
+            var id = $(this).attr('id'); // select 요소의 id 값
+            var value = $(this).val() || '';   // 사용자가 선택한 값
+            groupNewAttrInfo[id] = value;       // 게임 정보에 저장
+        });
+
+        var groupData = {
+            groupNm : $('#groupNm').val().trim(),
+            groupDc : $('#groupDc').val().trim(),
+            groupImg : $('#groupImg').attr('src'),
+            maxUserCount : $('#maxUserCount').val().trim() ,
+            startTime : $('#startTime').val().trim(),
+            endTime : $('#endTime').val().trim(),
+            gameInfo : {
+                gameId : $('#groupNewGameSelect #selectedItem span').attr('id'),
+                gameNm : $('#groupNewGameSelect #selectedItem span').text().trim(),
+                info : groupNewAttrInfo
+            }
+        }
+
+
+        $.ajax({
+            url: '/group/',
+            type: 'post',
+            contentType: 'application/json',
+            data: JSON.stringify(groupData),
+            dataType: 'json',
+            async: false,
+            success: function (res) {
+
+                console.log(res);
+
+                // 팝업 닫기
+                popupMainClose();
+
+                // 내 참여 그룹 목록 리셋
+
+                // 생성한 방으로 main 전환
+
+            },
+            error: function (xhr) {
+
+                const errorMessage = xhr.responseJSON?.message || '서버 오류가 발생했습니다. 다시 시도해 주세요.';
+                alert(errorMessage);
+
+            }
+        });
 
     });
 }

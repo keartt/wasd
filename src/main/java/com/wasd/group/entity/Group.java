@@ -50,6 +50,7 @@ public class Group {
                 .groupDc(this.groupDc)
                 .groupImg(this.groupImg)
                 .maxUserCount(this.maxUserCount)
+                .createDt(this.createDt)
                 .startTime(this.startTime)
                 .endTime(this.endTime);
     }

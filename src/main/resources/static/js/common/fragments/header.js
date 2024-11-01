@@ -9,8 +9,8 @@ $(document).ready(function() {
         loadContentMain();
     });
 
-    // $('.group-main').trigger('click');    // 처음 active 추가
-    $('.group-detail').trigger('click');    // 처음 active 추가
+    $('.group-main').trigger('click');    // 처음 active 추가
+    // $('.group-detail').trigger('click');    // 처음 active 추가
 });
 
 // 선택 페이지 로드

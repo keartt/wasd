@@ -4,6 +4,7 @@ import com.wasd.gameInfo.dto.GameInfoDto;
 import com.wasd.group.entity.Group;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Getter
@@ -18,6 +19,7 @@ public class GroupDto {
     private String groupDc;
     private String groupImg;
     private Integer maxUserCount;
+    private LocalDateTime createDt;
     private LocalTime startTime;
     private LocalTime endTime;
 
@@ -30,6 +32,7 @@ public class GroupDto {
                 .groupDc(this.groupDc)
                 .groupImg(this.groupImg)
                 .maxUserCount(this.maxUserCount)
+                .createDt(this.createDt != null ? this.createDt : LocalDateTime.now())
                 .startTime(this.startTime)
                 .endTime(this.endTime)
                 .build();
