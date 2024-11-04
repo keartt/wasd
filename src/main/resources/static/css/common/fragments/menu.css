@@ -30,6 +30,7 @@
     position: relative;
 
     background-color: var(--group-bg);
+    border: 1px solid var(--group-bg);
     background-repeat: no-repeat;
 
     &:not(.active) {
@@ -51,10 +52,14 @@
 
     .group-icon > img {
         border-radius: inherit;
-        max-width: 100%;
+        /*max-width: 100%;*/
+        /*object-fit: contain;*/
+        /*max-height: 100%;*/
 
-        object-fit: contain;
-        max-height: 100%;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+
     }
     &.profile-setting{
         text-align: center;
@@ -75,13 +80,13 @@
         }
 
         &::after {
-            content: attr(data-status);
+            content: attr(data-groups);
             color: rgba(var(--body-color), 0.3);
             pointer-events: none;
             font-weight: 300;
             font-size: 0.65rem;
             position: absolute;
-            bottom: -35px;
+            bottom: -45px;
             left: 3px;
             padding-bottom: 10px;
             border-bottom: 2px solid var(--group-bg);
@@ -106,6 +111,7 @@
 
     &.active {
         border-radius: 15px;
+        border: 1px solid var(--group-bg-active);
         background-color: var(--group-bg-active);
     }
 
@@ -126,11 +132,17 @@
 
 #myGroups{
     /*height: calc(100vh - 248px);*/
+    width: 100%;
     height: calc(100vh - 212px);
+    min-height: 50px;
     overflow-y: auto;
     -ms-overflow-style: none;
-    margin-bottom: 8px;
-    min-height: 50px;
+    /*margin-bottom: 8px;*/
+    padding-bottom: 8px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #myGroups::-webkit-scrollbar {

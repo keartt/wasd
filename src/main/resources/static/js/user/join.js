@@ -64,8 +64,7 @@ function userInfoSave(){
             window.location.href = '/main';
         },
         error: function (xhr) {
-            const errorMessage = xhr.responseJSON?.message || '서버 오류가 발생했습니다. 다시 시도해 주세요.';
-            alert(errorMessage);
+            alert(xhr.responseText || '서버 오류가 발생했습니다. 다시 시도해 주세요.');
         }
     });
 }

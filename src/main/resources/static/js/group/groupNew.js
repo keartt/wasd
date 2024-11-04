@@ -66,7 +66,7 @@ function groupNewGameSelect() {
 
                 // 첫 번째 데이터를 기본 선택값으로 설정
                 var firstItem = res[0];
-                $('#groupNewGameSelect #selectedItem').html('<img src="/images/gameImg/' + firstItem.gameId + '.png" /><span id="'+ firstItem.gameId +'">' + firstItem.gameNm + '</span>');
+                $('#groupNewGameSelect #selectedItem').html('<img src="/images/gameImg/' + firstItem.gameId + '.png" /><span data-game="'+ firstItem.gameId +'">' + firstItem.gameNm + '</span>');
 
 
                 // 드롭다운 목록에 항목 추가
@@ -84,7 +84,7 @@ function groupNewGameSelect() {
             }
         },
         error: function (xhr) {
-            alert(xhr.responseJSON?.message || '서버 오류가 발생했습니다. 다시 시도해 주세요.');
+            alert(xhr.responseText || '서버 오류가 발생했습니다. 다시 시도해 주세요.');
         }
     });
 }
@@ -98,16 +98,13 @@ function groupNewSelectEvent(){
     $('#groupNewGameSelect .dropdown .dropdown-item').click(function () {
         var selectedValue = $(this).data('value');
         var selectedText = $(this).text();
-        var selectImg = $('#groupNewGameSelect #selectedItem img').attr('id') || 'groupNewSelect_null';
+        var currentValue = $('#groupNewGameSelect #selectedItem span').attr('data-game');
 
-        $('#groupNewGameSelect').removeClass('open');
-        if (selectImg.split('_')[1] != selectedValue) {
-            $('#groupNewGameSelect #selectedItem').html('<img id="groupNewSelect_' + selectedValue + '" src="/images/gameImg/' + selectedValue + '.png" />' + selectedText);
-
-
+        if (currentValue != selectedValue) {
+            $('#groupNewGameSelect #selectedItem').html('<img src="/images/gameImg/' + selectedValue + '.png" /><span data-game="'+ selectedValue +'">' + selectedText + '</span>');
             getGameInfoAttr(selectedValue);
         }
-
+        $('#groupNewGameSelect').removeClass('open');
     });
 
     $('.groupNew-box').click(function (event) {
@@ -190,8 +187,8 @@ function groupNewSave(){
             {
                 id: 'maxUserCount',
                 name: '인원수',
-                pattern: /^(1|[2-9][0-9]*|[1-9][0-9]{2,})$/, // 1 이상의 숫자만 허용
-                message: '인원수는 1 이상의 숫자만 허용됩니다.'
+                pattern: /^(?:[2-9][0-9]*|1[0-9][0-9]*)$/, // 1 이상의 숫자만 허용
+                message: '인원수는 2 이상의 숫자만 허용됩니다.'
             }
         ];
         if (!validation(groupfields)) { return; }
@@ -211,12 +208,11 @@ function groupNewSave(){
             startTime : $('#startTime').val().trim(),
             endTime : $('#endTime').val().trim(),
             gameInfo : {
-                gameId : $('#groupNewGameSelect #selectedItem span').attr('id'),
+                gameId : $('#groupNewGameSelect #selectedItem span').attr('data-game'),
                 gameNm : $('#groupNewGameSelect #selectedItem span').text().trim(),
                 info : groupNewAttrInfo
             }
         }
-
 
         $.ajax({
             url: '/group/',
@@ -227,20 +223,18 @@ function groupNewSave(){
             async: false,
             success: function (res) {
 
-                console.log(res);
-
                 // 팝업 닫기
                 popupMainClose();
 
-                // 내 참여 그룹 목록 리셋
+                // 내 그룹 새로고침
+                getMyGroupList();
 
-                // 생성한 방으로 main 전환
+                // 생성한 방으로 화면 전환
+                findGroupDetail(res.groupId);
 
             },
             error: function (xhr) {
-
-                const errorMessage = xhr.responseJSON?.message || '서버 오류가 발생했습니다. 다시 시도해 주세요.';
-                alert(errorMessage);
+                alert(xhr.responseText || '서버 오류가 발생했습니다. 다시 시도해 주세요.');
 
             }
         });

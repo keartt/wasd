@@ -24,6 +24,7 @@ public class GroupDto {
     private LocalTime endTime;
 
     private GameInfoDto gameInfo;
+    private Integer userCount;
 
     public Group toEntity(){
         return Group.builder()
