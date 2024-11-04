@@ -6,15 +6,15 @@
     <!-- 공통 설정 파일 삽입 -->
     <div th:replace="~{/common/fragments/config :: ConfigFragment}"/>
 
-    <script th:inline="javascript" type="text/javascript" th:src="@{/js/common/fragments/header.js}"></script>
-    <link th:inline="css" th:href="@{/css/common/fragments/header.css}" rel="stylesheet"/>
+    <script th:inline="javascript" type="text/javascript" th:src="@{/js/common/fragments/menu.js}"></script>
+    <link th:inline="css" th:href="@{/css/common/fragments/menu.css}" rel="stylesheet"/>
 
     <script th:inline="javascript">let oauthUserInfo = /*[[${oauth}]]*/ {};</script>
 </head>
 
 <body class="container">
-    <!--Header 영역-->
-    <header th:replace="~{/common/fragments/header :: HeaderFragment}"></header>
+    <!--메뉴 영역 -->
+    <header th:replace="~{/common/fragments/menu :: MenuFragment}"></header>
 
     <!--Content 내용 영역-->
     <div class="content-main">

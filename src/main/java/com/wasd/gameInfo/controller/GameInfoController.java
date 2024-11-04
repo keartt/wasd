@@ -91,24 +91,4 @@ public class GameInfoController {
         return ResponseEntity.ok(gameInfoService.deleteUserGameInfo(gameId, oAuth2User.getUserInfo().getId()));
     }
 
-
-    /**
-     * 그룹 아이디로 선택한 그룹의 게임 정보 조회
-     * @param groupId 그룹아이디
-     * @return GroupGameInfoDto 선택한 그룹의 게임 정보
-     */
-    @GetMapping("/group/{groupId}")
-    public ResponseEntity<GroupGameInfoDto> findGroupGameInfo(@PathVariable Long groupId){
-        return ResponseEntity.ok(gameInfoService.findGroupGameInfo(groupId));
-    }
-
-    /**
-     * 선택한 게임에 해당하는 그룹_게임 목록 조회
-     * @param gameId 게임 아이디
-     * @return List<GroupGameInfoDto> 선택한 게임에 해당하는 그룹 목록
-     */
-    @GetMapping("/group/game/{gameId}")
-    public ResponseEntity<List<GroupGameInfoDto>> findGroupGameListByGameId(@PathVariable String gameId){
-        return ResponseEntity.ok(gameInfoService.findGroupGameListByGameId(gameId));
-    }
 }

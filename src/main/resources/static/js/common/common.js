@@ -19,7 +19,7 @@ function validation(fields) {
     } else {
         for (const field of fields) {
             const {id, name, pattern, message} = field;
-            const value = $('#' + id).val();
+            const value = $('#' + id).val().trim();
 
             if (!value) {
                 alert(name + '은(는) 필수 입력 항목입니다.');

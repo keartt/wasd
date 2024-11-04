@@ -72,42 +72,10 @@
             <span>ALL</span>
         </div>
 
-        <div class="all-group-content">
-
-            <div th:each="i : ${#numbers.sequence(1, 10)}" class="all-group-item-box">
-                <div class="all-group-item-img">
-                    <img th:src="@{/images/gameImg/lol.png}">
-                </div>
-                <div class="all-group-item-dc-box">
-                    <div class="dc-title-box">
-                        <span>［</span>
-                        <div class="dc-title">자유랭 5인팟 구함 <span th:text="${i}">1</span></div>
-                        <span>］</span>
-                    </div>
-                    <div class="dc-content">
-                        그룹 설명이다
-                    </div>
-                    <div class="dc-limit">
-                        <div class="dc-limit-info">
-                            <div>
-                                <i class="fa-solid fa-user"></i>
-                                <span>5 / 10</span>
-                            </div>
-                            <div>
-                                <i class="fa-regular fa-clock"></i>
-                                <span>22:00 ~ 24:00</span>
-                            </div>
-                        </div>
-                        <div class="dc-limit-btn-box">
-                            <button class="dc-limit-btn bt"><i class="fa-solid fa-arrow-right-to-bracket"></i></button>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+        <div class="all-group-content-box">
 
         </div>
+
     </div>
 
 </div>

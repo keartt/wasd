@@ -13,14 +13,14 @@ public interface GroupGameInfoRepository extends MongoRepository<GroupGameInfo, 
      * @param groupId
      * @return
      */
-    Optional<GroupGameInfo>  findByGroupId(Long groupId);
+    Optional<GroupGameInfo> findByGroupId(Long groupId);
 
     /**
      * gameId로 GroupGameInfo 목록 조회
      * @param gameId
      * @return
      */
-    List<GroupGameInfo> findByGameInfo_GameId(String gameId);
+    List<GroupGameInfo> findByGameInfo_GameIdOrderByGroupIdDesc(String gameId);
 
 
     /**

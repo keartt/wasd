@@ -285,8 +285,8 @@ function getGameInfo(){
         success: function (res) {
             gameInfoList = res;
         },
-        error: function (err) {
-            alert('게임 정보 조회 중 문제가 발생하였습니다. 잠시 후 다시 시도하세요.');
+        error: function (xhr) {
+            alert(xhr.responseText || '게임 정보 조회 중 문제가 발생하였습니다. 잠시 후 다시 시도하세요.');
         }
     });
 }

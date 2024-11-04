@@ -130,7 +130,7 @@ function saveUserInfo(changeCheck){
                 }
             },
             error: function (xhr) {
-                alert(xhr.responseJSON?.message || '서버 오류가 발생했습니다. 다시 시도해 주세요.');
+                alert(xhr.responseText || '서버 오류가 발생했습니다. 다시 시도해 주세요.');
                 if (changeCheck) {
                     setUserInfoField(userInfo); // 수정 취소 -> 기존 값으로 리셋
                 }
@@ -187,7 +187,7 @@ function getGameInfoUser(){
             });
         },
         error: function (xhr) {
-            alert(xhr.responseJSON?.message || '서버 오류가 발생했습니다. 다시 시도해 주세요.');
+            alert(xhr.responseText || '서버 오류가 발생했습니다. 다시 시도해 주세요.');
         }
     });
 }
@@ -224,7 +224,7 @@ function saveUserGameInfo(changeCheck){
             $('.profile-info-game-box .profile-info-game-btn').first().trigger('click');    // 첫번째 게임에 select 옵션 추가
         },
         error: function (xhr) {
-            alert(xhr.responseJSON?.message || '서버 오류가 발생했습니다. 다시 시도해 주세요.');
+            alert(xhr.responseText || '서버 오류가 발생했습니다. 다시 시도해 주세요.');
         }
     });
 }
