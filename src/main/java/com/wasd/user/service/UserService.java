@@ -1,7 +1,6 @@
 package com.wasd.user.service;
 
-import com.wasd.config.security.CustomOAuth2User;
-import com.wasd.gameInfo.entity.UserGameInfo;
+import com.wasd.common.oauth.CustomOAuth2User;
 import com.wasd.gameInfo.service.GameInfoService;
 import com.wasd.user.dto.UserDto;
 import com.wasd.user.entity.User;

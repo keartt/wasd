@@ -1,5 +1,7 @@
-package com.wasd.config.security;
+package com.wasd.config;
 
+import com.wasd.common.oauth.CustomOAuth2User;
+import com.wasd.common.oauth.OAuth2UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;

@@ -1,5 +1,7 @@
-package com.wasd.config.security;
+package com.wasd.common.controller;
 
+import com.wasd.common.oauth.CustomOAuth2User;
+import com.wasd.common.oauth.OAuth2UserInfo;
 import com.wasd.user.repository.UserRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;

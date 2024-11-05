@@ -1,4 +1,4 @@
-package com.wasd.config;
+package com.wasd.common.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.web.servlet.error.ErrorController;

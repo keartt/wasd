@@ -1,9 +1,9 @@
 package com.wasd.common.controller;
 
-import com.wasd.config.security.CustomOAuth2User;
 import com.wasd.group.dto.GroupDto;
 import com.wasd.group.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.wasd.common.oauth.CustomOAuth2User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;

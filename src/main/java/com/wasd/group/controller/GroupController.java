@@ -1,10 +1,8 @@
 package com.wasd.group.controller;
 
-import com.wasd.config.security.CustomOAuth2User;
-import com.wasd.gameInfo.dto.GameInfoDto;
+import com.wasd.common.oauth.CustomOAuth2User;
 import com.wasd.group.dto.GroupDto;
 import com.wasd.group.service.GroupService;
-import com.wasd.user.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
