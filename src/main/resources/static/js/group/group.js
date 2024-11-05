@@ -103,10 +103,6 @@ function groupNew() {
             initGroupNew();
         }, complete() {
             popupMainOpen();
-
-            setTimeout(function () {
-                $('.popup-main-box').scrollTop(0);
-            }, 50);
         }
     });
 }
@@ -209,5 +205,5 @@ function joinGroup(groupId, groupNm){
 
 // 내 그룹 찾기 -> 화면 전환
 function findGroupDetail(groupId){
-    $("[data-groupId='"+ groupId+"']").trigger("click");
+    $("[data-groupid='"+ groupId+"']").trigger("click");
 }

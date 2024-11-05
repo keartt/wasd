@@ -82,9 +82,11 @@ public class GroupService {
      * @return
      */
     public GroupDto findGroupByGroupId(Long groupId){
-        return groupRepository.findById(groupId)
-                .orElseThrow(() -> new RuntimeException("그룹 아이디에 해당하는 정보가 없습니다."))
-                .toDto();
+        return groupGameInfoRepository.findByGroupId(groupId)
+                .map(groupGameInfo -> groupRepository.findById(groupId)
+                        .orElseThrow(() -> new RuntimeException("그룹 아이디에 해당하는 정보가 없습니다."))
+                        .toDto(groupGameInfo.getGameInfo().toDto()))
+                .orElseThrow(() -> new RuntimeException("해당 그룹의 게임 정보가 없습니다."));
     }
 
     /**
