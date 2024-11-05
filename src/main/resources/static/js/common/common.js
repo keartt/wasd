@@ -55,6 +55,10 @@ function setFieldValue(id, value){
 function popupMainOpen(){
     $('.popup-main').addClass('active');
 
+    setTimeout(function () {
+        $('.popup-main-box').scrollTop(0);
+    }, 50);
+
 }
 // 팝업창 닫기
 function popupMainClose(){
