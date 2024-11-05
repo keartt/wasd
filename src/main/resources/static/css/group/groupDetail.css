@@ -223,3 +223,14 @@
 .groupDetail-info-menu-box:hover{
     display: block;
 }
+.status-indicator {
+    width: 12px; /* 원의 크기 */
+    height: 12px;
+    border-radius: 50%; /* 원 형태 */
+    margin: auto 0 auto auto;
+    background-color: gray; /* 기본 색상 (회색) */
+}
+
+.status-indicator.active {
+    background-color: #2de42d; /* 활성 상태일 때 색상 (초록색) */
+}

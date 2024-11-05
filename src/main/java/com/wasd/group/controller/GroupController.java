@@ -72,5 +72,10 @@ public class GroupController {
         return ResponseEntity.ok(groupService.joinGroup(groupDto, oAuth2User));
     }
 
+    @GetMapping("/{groupId}")
+    public ResponseEntity<GroupDto> getGroupInfo(@PathVariable Long groupId){
+        return ResponseEntity.ok(groupService.findGroupByGroupId(groupId));
+    }
+
 
 }
