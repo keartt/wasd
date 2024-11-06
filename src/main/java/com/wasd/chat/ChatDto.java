@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @Getter
 public class ChatDto {
 
-    private String sender;
+    private String msg;
+    private String userId;
+    private String nickname;
+    private String profileImg;
 
-    private String content;
-
-    private String base64;
 }

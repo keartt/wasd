@@ -24,7 +24,7 @@ public class WebSockectConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     // 메시지브로커 설정
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        // sub 는 어디 room 으로 보낼지 시작시 정해주는것
+        // sub 는 어디로 보낼지 시작시 정해주는것
         registry.enableSimpleBroker("/sub");  // 구독경로 prefix 지정 (수신경로)
 
         // pub 는 메시지를 보낼때 messangeMapping 주소에 매핑되게 하는것
@@ -33,7 +33,6 @@ public class WebSockectConfig implements WebSocketMessageBrokerConfigurer {
 
     // file 용량 해제
     @Override
-    //WebSocket 전송 설정 구성
     public void configureWebSocketTransport(WebSocketTransportRegistration registration) {
         registration.setMessageSizeLimit(2048 * 2048); // 메시지 크기 제한: 4MB
         registration.setSendBufferSizeLimit(2048 * 2048); // 전송 버퍼 크기: 4MB
