@@ -234,3 +234,37 @@
 .status-indicator.active {
     background-color: #2de42d; /* 활성 상태일 때 색상 (초록색) */
 }
+
+.chat-info-message {
+    display: grid;
+    gap: 10px;
+}
+
+.groupDetail-chat-notice {
+    text-align: center;
+}
+
+.chat-notice-text {
+    color: #666;
+    font-size: 0.9rem;
+    background-color: #f5f5f5;
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
+}
+
+/* 내 메시지 스타일 */
+.groupDetail-chat-content.my-msg {
+    flex-direction: row-reverse;
+}
+
+.groupDetail-chat-content.my-msg .groupDetail-chat-info {
+    align-items: flex-end;
+}
+
+.groupDetail-chat-content.my-msg .chat-info-title {
+    text-align: right;
+}
+
+.chat-info-message.my-msg pre {
+    text-align: right;
+}
