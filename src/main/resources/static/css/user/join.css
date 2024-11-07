@@ -26,8 +26,11 @@
 
 .profile-box {
     display: flex;
-    height: 600px;
-    width: 1000px;
+    /*height: 600px;*/
+    /*width: 1000px;*/
+
+    height: 70%;
+    width: 70%;
 }
 
 /* 좌측 step 박스*/
@@ -128,6 +131,8 @@
     border: none;
     cursor: pointer;
     border-radius: 20px;
+    max-width: 100px;
+    max-height: 100px;
     min-height: 50px;
     min-width: 50px;
 }
@@ -192,6 +197,7 @@
 
 
 .gameInfo-popup {
+    display: flex;
     display: none;
     position: fixed;
     z-index: 20;
@@ -204,12 +210,13 @@
 
 .gameInfo-content {
     background-color: var(--back-bg);
-    margin: 12.5% auto;
+    /*margin: 12.5% auto;*/
+    margin: auto;
     padding: 30px 30px 20px 30px;
     border-radius: 20px;
     width: 50%;
     max-width: 700px;
-    height: 50%;
+    /*height: 50%;*/
     max-height: 400px;
     position: relative;
     display: flex;
@@ -232,17 +239,16 @@
     gap: 20px;
     max-width: 680px;
     padding: 20px;
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow: auto;
     white-space: nowrap;
     margin: 10px 0 20px 0;
     max-height: 200px;
 }
 
-.gameInfo-popup-gamebox .profile-info-game-btn {
-    min-width: 100px;
-    min-height: 100px;
-}
+/*.gameInfo-popup-gamebox .profile-info-game-btn {*/
+/*    min-width: 100px;*/
+/*    min-height: 100px;*/
+/*}*/
 
 /* 프로필 이미지 */
 .profile-info-img-box {

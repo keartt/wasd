@@ -319,6 +319,6 @@ function openGameInfoPopup() {
         `;
     });
     $("#gameInfo-popup-gamebox").append(addTag);
-    $("#gameInfo-popup").show();
+    $("#gameInfo-popup").show().css("display", "flex");
 
 }
