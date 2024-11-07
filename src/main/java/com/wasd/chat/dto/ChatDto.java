@@ -1,14 +1,12 @@
-package com.wasd.chat;
+package com.wasd.chat.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Getter
+@ToString
 public class ChatDto {
 
     private String msg;

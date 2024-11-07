@@ -1,4 +1,4 @@
-package com.wasd.chat;
+package com.wasd.chat.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,5 +19,5 @@ public class ChatUsers {
     private String userId;  // Primary Key로 String 타입 사용
 
     @Column(name = "group_id")
-    private String groupId;
+    private Long groupId;
 }
