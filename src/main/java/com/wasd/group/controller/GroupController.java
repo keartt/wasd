@@ -1,10 +1,8 @@
 package com.wasd.group.controller;
 
-import com.wasd.config.security.CustomOAuth2User;
-import com.wasd.gameInfo.dto.GameInfoDto;
+import com.wasd.common.oauth.CustomOAuth2User;
 import com.wasd.group.dto.GroupDto;
 import com.wasd.group.service.GroupService;
-import com.wasd.user.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -72,6 +70,11 @@ public class GroupController {
     @PostMapping("/join")
     public ResponseEntity<GroupDto> joinGroup(@RequestBody GroupDto groupDto, @AuthenticationPrincipal CustomOAuth2User oAuth2User){
         return ResponseEntity.ok(groupService.joinGroup(groupDto, oAuth2User));
+    }
+
+    @GetMapping("/{groupId}")
+    public ResponseEntity<GroupDto> getGroupInfo(@PathVariable Long groupId){
+        return ResponseEntity.ok(groupService.findGroupByGroupId(groupId));
     }
 
 

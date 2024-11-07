@@ -1,5 +1,7 @@
-package com.wasd.config;
+package com.wasd.common.controller;
 
+import com.wasd.common.exception.ErrorCode;
+import com.wasd.common.exception.WasdException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
@@ -26,7 +28,6 @@ public class CustomErrorController implements ErrorController {
     public String handleError(HttpServletRequest request, Model model) {
         Integer statusCode = (Integer) request.getAttribute("jakarta.servlet.error.status_code"); // HTTP 상태 코드
         model.addAttribute("errorMsg", errorMsg.getOrDefault(statusCode, "알 수 없는 오류가 발생했습니다."));
-
         return "/common/error";
     }
 

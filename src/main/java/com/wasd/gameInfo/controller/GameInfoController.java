@@ -1,8 +1,7 @@
 package com.wasd.gameInfo.controller;
 
-import com.wasd.config.security.CustomOAuth2User;
+import com.wasd.common.oauth.CustomOAuth2User;
 import com.wasd.gameInfo.dto.GameInfoDto;
-import com.wasd.gameInfo.dto.GroupGameInfoDto;
 import com.wasd.gameInfo.dto.UserGameInfoDto;
 import com.wasd.gameInfo.service.GameInfoService;
 import lombok.RequiredArgsConstructor;

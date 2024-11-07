@@ -1,5 +1,7 @@
-package com.wasd.config.security;
+package com.wasd.config;
 
+import com.wasd.common.oauth.CustomOAuth2User;
+import com.wasd.common.oauth.OAuth2UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -27,7 +29,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
 
                         // 로그인페이지 말고는 인증 안되게 ( + 정적파일 접근권한도 추가해줘야함)
-                        .requestMatchers("/login", "/css/**", "/images/**", "/js/**", "/error").permitAll()
+                        .requestMatchers("/login", "/css/**", "/images/**", "/js/**", "/error", "/cdn/**", "/webjars/**").permitAll()
                         .requestMatchers("/auth/temp").permitAll()
 
                         /*// 특정 HTTP 메서드에 대한 제한 설정

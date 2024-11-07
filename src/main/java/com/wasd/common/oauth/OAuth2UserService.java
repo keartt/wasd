@@ -1,4 +1,4 @@
-package com.wasd.config.security;
+package com.wasd.common.oauth;
 
 import com.wasd.user.repository.UserRepository;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,6 @@
 package com.wasd.user.controller;
 
-import com.wasd.config.security.CustomOAuth2User;
+import com.wasd.common.oauth.CustomOAuth2User;
 import com.wasd.user.dto.UserDto;
 import com.wasd.user.enums.MbtiEnum;
 import com.wasd.user.service.UserService;

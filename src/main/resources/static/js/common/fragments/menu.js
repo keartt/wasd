@@ -31,7 +31,8 @@ function getContentMain(){
                 } else if (url === '/main/group') {
                     initGroup();    // 그룹 관련 초기화
                 } else if (url.startsWith('/main/group/')) {
-                    initGroupDetail();  // 그룹 상세 관련 초기화
+                    groupDetail.init();
+                    // initGroupDetail();  // 그룹 상세 관련 초기화
                 }
             }
         });

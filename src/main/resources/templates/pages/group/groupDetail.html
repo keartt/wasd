@@ -6,8 +6,8 @@
             <h3 class="groupDetail-info-title">그룹명</h3>
             <button class="groupDetail-info-menu-btn"><i class="fa-solid fa-angle-down"></i></button>
             <ul class="groupDetail-info-menu-box">
-                <li onclick="openGroupInfo()"><i class="fa-solid fa-circle-info"></i><span>그룹 정보</span></li>
-<!--                <li><i class="fa-solid fa-gear"></i><span>그룹 수정</span></li>-->
+                <li id="group-dtl-li"><i class="fa-solid fa-circle-info"></i><span>그룹 정보</span></li>
+                <!--                <li><i class="fa-solid fa-gear"></i><span>그룹 수정</span></li>-->
                 <li><i class="fa-solid fa-arrow-right-from-bracket"></i><span>나가기</span></li>
             </ul>
         </div>
@@ -18,107 +18,82 @@
                 <img src="https://phinf.pstatic.net/contact/20231030_205/1698654489971YYRM8_JPEG/%C5%D7%BD%BA%C6%AE3.jpg"/>
                 <i class="fa-solid fa-crown"></i>   <!-- 그룹장 표시 -->
                 <span>닉네임1</span>
+                <div class="status-indicator active"></div> <!-- 참가 여부를 나타내는 원 -->
             </div>
 
             <div class="groupDetail-info-user">
                 <img src="http://img1.kakaocdn.net/thumb/R640x640.q70/?fname=http://t1.kakaocdn.net/account_images/default_profile.jpeg"/>
                 <span>닉네임2</span>
+                <div class="status-indicator"></div> <!-- 참가 여부를 나타내는 원 -->
             </div>
         </div>
 
         <!-- 음성 통화 관련 div -->
-<!--        <div class="">-->
+        <!--        <div class="">-->
 
-<!--        </div>-->
+        <!--        </div>-->
     </div>
 
-     <div class="groupDetail-chat-box">
+    <div class="groupDetail-chat-box">
 
-         <!-- 채팅 내역 -->
-         <div class="groupDetail-chat-list-box">
+        <!-- 채팅 내역 -->
+        <div class="groupDetail-chat-list-box" style="padding: 1rem 0;">
 
-             <div class="groupDetail-chat-content">
-                 <img src="http://img1.kakaocdn.net/thumb/R640x640.q70/?fname=http://t1.kakaocdn.net/account_images/default_profile.jpeg"/>
-                 <div class="groupDetail-chat-info">
-                     <div class="chat-info-title">
-                         <span class="chat-info-title-username">닉네임1</span>
-                         <span class="chat-info-title-date">2024.10.28 14:00</span>
-                     </div>
+            <!-- 메시지 예시 -->
+            <div class="groupDetail-chat-content">
+                <img src="http://img1.kakaocdn.net/thumb/R640x640.q70/?fname=http://t1.kakaocdn.net/account_images/default_profile.jpeg"/>
+                <div class="groupDetail-chat-info">
+                    <div class="chat-info-title">
+                        <span class="chat-info-title-username">닉네임2</span>
+                        <span class="chat-info-title-date">2024.10.28 17:00</span>
+                    </div>
+                    <div class="chat-info-message">
+                        <pre>메시지</pre>
+                        <pre>메시지2</pre>
+                    </div>
+                </div>
+            </div>
 
-                     <div class="chat-info-message">
+            <div class="groupDetail-chat-content my-msg">
+                <img src="http://img1.kakaocdn.net/thumb/R640x640.q70/?fname=http://t1.kakaocdn.net/account_images/default_profile.jpeg"/>
+                <div class="groupDetail-chat-info">
+                    <div class="chat-info-title">
+                        <span class="chat-info-title-date">2024.10.28 17:00</span>
+                        <span class="chat-info-title-username">닉네임2</span>
+                    </div>
+                    <div class="chat-info-message">
+                        <pre>메시지</pre>
+                        <pre>메시지2</pre>
+                    </div>
+                </div>
+            </div>
 
-<pre>
-메시지
-
-테스트
-
-1
-</pre>
-
-                     </div>
-                 </div>
-             </div>
-
-             <div class="groupDetail-chat-content">
-                 <img src="http://img1.kakaocdn.net/thumb/R640x640.q70/?fname=http://t1.kakaocdn.net/account_images/default_profile.jpeg"/>
-                 <div class="groupDetail-chat-info">
-                     <div class="chat-info-title">
-                         <span class="chat-info-title-username">닉네임2</span>
-                         <span class="chat-info-title-date">2024.10.28 17:00</span>
-                     </div>
-
-                     <div class="chat-info-message">
-
-<pre>
-메시지
-
-테스트
-
-2
-</pre>
-
-                     </div>
-                 </div>
-             </div>
+<!--            &lt;!&ndash; 입장 알림 메시지 &ndash;&gt;-->
+<!--            <div class="groupDetail-chat-notice">-->
+<!--                <span class="chat-notice-text">홍길동님이 입장하셨습니다.</span>-->
+<!--            </div>-->
 
 
-             <div class="groupDetail-chat-content">
-                 <img src="http://img1.kakaocdn.net/thumb/R640x640.q70/?fname=http://t1.kakaocdn.net/account_images/default_profile.jpeg"/>
-                 <div class="groupDetail-chat-info">
-                     <div class="chat-info-title">
-                         <span class="chat-info-title-username">닉네임1</span>
-                         <span class="chat-info-title-date">2024.10.28 14:00</span>
-                     </div>
+        </div>
 
-                     <div class="chat-info-message">
+        <!-- 채팅 전송 창 -->
+        <div class="groupDetail-chat-write-box">
 
-<pre>
-메시지
+            <button class="chat-write-btn" id="chat-submit"><i class="fa-regular fa-paper-plane"></i></button>
+            <textarea class="chat-write-textarea" id="chat-text"></textarea>
 
-테스트
-
-1
-</pre>
-
-                     </div>
-                 </div>
-             </div>
-
-
-
-         </div>
-
-         <!-- 채팅 전송 창 -->
-         <div class="groupDetail-chat-write-box">
-
-             <button class="chat-write-btn"><i class="fa-regular fa-paper-plane"></i></button>
-             <textarea class="chat-write-textarea"></textarea>
-
-         </div>
-     </div>
+        </div>
+    </div>
 
 </div>
 
 
 <link th:inline="css" th:href="@{/css/group/groupDetail.css}" rel="stylesheet"/>
+
+<!--<script src="/webjars/sockjs-client/1.5.1/sockjs.js"></script>-->
+<!--<script src="/webjars/stomp-websocket/2.3.4/stomp.min.js"></script>-->
+<script th:inline="javascript" type="text/javascript" th:src="@{/cdn/js/sockjs.js}"></script>
+<script th:inline="javascript" type="text/javascript" th:src="@{/cdn/js/stomp.min.js}"></script>
+
 <script th:inline="javascript" type="text/javascript" th:src="@{/js/group/groupDetail.js}"></script>
+<script th:inline="javascript" type="text/javascript" th:src="@{/js/chat/chat.js}"></script>

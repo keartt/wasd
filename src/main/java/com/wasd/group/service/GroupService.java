@@ -1,6 +1,6 @@
 package com.wasd.group.service;
 
-import com.wasd.config.security.CustomOAuth2User;
+import com.wasd.common.oauth.CustomOAuth2User;
 import com.wasd.gameInfo.dto.GroupGameInfoDto;
 import com.wasd.gameInfo.entity.GroupGameInfo;
 import com.wasd.gameInfo.repository.GroupGameInfoRepository;

@@ -1,6 +1,6 @@
 package com.wasd.user.dto;
 
-import com.wasd.config.security.CustomOAuth2User;
+import com.wasd.common.oauth.CustomOAuth2User;
 import com.wasd.gameInfo.dto.GameInfoDto;
 import com.wasd.user.entity.User;
 import com.wasd.user.enums.MbtiEnum;
