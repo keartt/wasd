@@ -84,7 +84,7 @@ function groupNewGameSelect() {
             }
         },
         error: function (xhr) {
-            alert(xhr.responseText || '서버 오류가 발생했습니다. 다시 시도해 주세요.');
+            util.alert('error', xhr.responseJSON.msg || '서버 오류가 발생했습니다. 다시 시도해 주세요.' ,'',undefined,undefined);
         }
     });
 }
@@ -234,8 +234,7 @@ function groupNewSave(){
 
             },
             error: function (xhr) {
-                alert(xhr.responseText || '서버 오류가 발생했습니다. 다시 시도해 주세요.');
-
+                util.alert('error', xhr.responseJSON.msg || '서버 오류가 발생했습니다. 다시 시도해 주세요.' ,'',undefined,undefined);
             }
         });
 

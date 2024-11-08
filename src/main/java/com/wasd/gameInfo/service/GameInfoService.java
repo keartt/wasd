@@ -1,5 +1,7 @@
 package com.wasd.gameInfo.service;
 
+import com.wasd.common.exception.ErrorCode;
+import com.wasd.common.exception.WasdException;
 import com.wasd.gameInfo.dto.GameInfoDto;
 import com.wasd.gameInfo.dto.GroupGameInfoDto;
 import com.wasd.gameInfo.dto.UserGameInfoDto;
@@ -34,7 +36,7 @@ public class GameInfoService {
     public GameInfoDto findGameInfo(String gameId) {
         return gameInfoRepository.findByGameId(gameId)
                 .map(GameInfo::toDto)
-                .orElseThrow(() -> new RuntimeException("해당 게임이 없습니다"));
+                .orElseThrow(() -> new WasdException(ErrorCode.NO_DATA,"해당 게임이 없습니다."));
     }
 
     public List<GameInfoDto> findUserGameInfo(String userId) {
@@ -52,8 +54,8 @@ public class GameInfoService {
                         .filter(gameInfo -> gameId.equals(gameInfo.getGameId()))
                         .findFirst()
                         .map(GameInfo::toDto)
-                        .orElseThrow(() -> new RuntimeException("게임 아이디에 해당하는 정보가 없습니다.")))
-                .orElseThrow(() -> new RuntimeException("유저에 해당하는 정보가 없습니다."));
+                        .orElseThrow(() -> new WasdException(ErrorCode.NO_DATA,"게임 아이디에 해당하는 정보가 없습니다.") ))
+                .orElseThrow(() -> new WasdException(ErrorCode.NO_DATA,"유저에 해당하는 정보가 없습니다."));
     }
 
     public UserGameInfoDto insertUserGameInfo(List<GameInfoDto> gameInfoDtoList, String userId) {
@@ -71,7 +73,7 @@ public class GameInfoService {
 
     public UserGameInfoDto updateUserGameInfo(GameInfoDto gameInfoDto, String userId) {
         UserGameInfo byUserId = userGameInfoRepository.findByUserId(userId)
-                .orElseThrow(() -> new RuntimeException("유저 정보가 없습니다."));
+                .orElseThrow(() -> new WasdException(ErrorCode.NO_DATA,"유저 정보가 없습니다."));
         List<GameInfo> gameInfoList = byUserId.getGameInfoList();
 
         // case 0: 유저 게임 정보가 없을 경우
@@ -109,7 +111,7 @@ public class GameInfoService {
 
     public UserGameInfoDto deleteUserGameInfo(String gameId, String userId){
         UserGameInfo beforeDelete = userGameInfoRepository.findByUserId(userId)
-                .orElseThrow(() -> new RuntimeException("유저 정보가 없습니다."));
+                .orElseThrow(() -> new WasdException(ErrorCode.NO_DATA,"유저 정보가 없습니다.") );
 
         // 삭제를 위해선 복사본 생성해야됨
         List<GameInfo> gameInfoList = new ArrayList<>(beforeDelete.getGameInfoList());

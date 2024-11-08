@@ -115,7 +115,7 @@ function closeGameInfoPopup() {
 function addPopupGameInfo() {
     var selectGameInfo = $('.gameInfo-popup-gamebox .profile-info-game-btn.select');
     if (selectGameInfo.length === 0) {
-        alert('선호하는 게임을 선택하세요.');
+        util.alert('info', '선호하는 게임을 선택하세요.', '',undefined,undefined);
         return;
     }
 
@@ -286,7 +286,7 @@ function getGameInfo(){
             gameInfoList = res;
         },
         error: function (xhr) {
-            alert(xhr.responseText || '게임 정보 조회 중 문제가 발생하였습니다. 잠시 후 다시 시도하세요.');
+            util.alert('error', xhr.responseJSON.msg || '게임 정보 조회 중 문제가 발생하였습니다. 잠시 후 다시 시도하세요.' ,'',undefined,undefined);
         }
     });
 }

@@ -1,5 +1,7 @@
 package com.wasd.group.service;
 
+import com.wasd.common.exception.ErrorCode;
+import com.wasd.common.exception.WasdException;
 import com.wasd.common.oauth.CustomOAuth2User;
 import com.wasd.gameInfo.dto.GroupGameInfoDto;
 import com.wasd.gameInfo.entity.GroupGameInfo;
@@ -68,7 +70,7 @@ public class GroupService {
     public List<GroupDto> findGroupByUserId(CustomOAuth2User oAuth2User) {
 
         User user = userRepository.findById(oAuth2User.getUserInfo().getId())
-                .orElseThrow(() -> new RuntimeException("해당 유저가 존재하지 않습니다."));
+                .orElseThrow(() -> new WasdException(ErrorCode.NO_DATA,"해당 유저가 존재하지 않습니다."));
 
         return groupUserRepository.findByUser_userId(user.getUserId()).stream()
                 .map(groupUser -> groupUser.getGroup().toDto())
@@ -84,9 +86,9 @@ public class GroupService {
     public GroupDto findGroupByGroupId(Long groupId){
         return groupGameInfoRepository.findByGroupId(groupId)
                 .map(groupGameInfo -> groupRepository.findById(groupId)
-                        .orElseThrow(() -> new RuntimeException("그룹 아이디에 해당하는 정보가 없습니다."))
+                        .orElseThrow(() -> new WasdException(ErrorCode.NO_DATA,"그룹 아이디에 해당하는 정보가 없습니다."))
                         .toDto(groupGameInfo.getGameInfo().toDto()))
-                .orElseThrow(() -> new RuntimeException("해당 그룹의 게임 정보가 없습니다."));
+                .orElseThrow(() -> new WasdException(ErrorCode.NO_DATA,"해당 그룹의 게임 정보가 없습니다."));
     }
 
     /**
@@ -101,7 +103,7 @@ public class GroupService {
         try{
 
             User user = userRepository.findById(oAuth2User.getUserInfo().getId())
-                    .orElseThrow(() -> new RuntimeException("해당 유저가 존재하지 않습니다."));
+                    .orElseThrow(() -> new WasdException(ErrorCode.NO_DATA,"해당 유저가 존재하지 않습니다."));
 
             // 그룹 생성
             Group group = groupRepository.save(groupDto.toEntity());
@@ -132,7 +134,7 @@ public class GroupService {
             if(groupId != null)
                 groupGameInfoRepository.deleteByGroupId(groupId);
 
-            throw new RuntimeException("그룹 생성 중 오류가 발생했습니다. 다시 시도해 주세요.");
+            throw new WasdException(ErrorCode.DB,"그룹 생성 중 오류가 발생했습니다. 다시 시도해 주세요.");
         }
     }
 
@@ -146,15 +148,20 @@ public class GroupService {
     public GroupDto joinGroup(GroupDto groupDto, CustomOAuth2User oAuth2User){
 
         User user = userRepository.findById(oAuth2User.getUserInfo().getId())
-                .orElseThrow(() -> new RuntimeException("해당 유저가 존재하지 않습니다."));
+                .orElseThrow(() -> new WasdException(ErrorCode.NO_DATA,"해당 유저가 존재하지 않습니다."));
 
         Group group =  groupRepository.findById(groupDto.getGroupId())
-                .orElseThrow(() -> new RuntimeException("그룹 아이디에 해당하는 정보가 없습니다."));
+                .orElseThrow(() -> new WasdException(ErrorCode.NO_DATA,"그룹 아이디에 해당하는 정보가 없습니다."));
 
         groupUserRepository.findByGroup_groupIdAndUser_userId(group.getGroupId(), user.getUserId())
                 .map(groupUserRes -> {
-                    throw new RuntimeException("해당 그룹에 이미 참여 중인 사용자입니다."); // 메시지 설정
+                    throw new WasdException(ErrorCode.ETC,"해당 그룹에 이미 참여 중인 사용자입니다.");
                 }); // 그룹 참여 정보가 없으면 null 반환
+
+        Integer currentUserCount = groupUserRepository.findByGroup_groupId(group.getGroupId()).size();
+        if(currentUserCount == group.getMaxUserCount()){
+            throw new WasdException(ErrorCode.ETC,"해당 그룹은 이미 인원이 가득 찼습니다. 다른 그룹을 찾아보시거나 새로운 그룹을 생성해보세요.");
+        }
 
         // 그룹_사용자 생성
         GroupUser saveGroupUser = GroupUser.builder()
@@ -178,16 +185,16 @@ public class GroupService {
 
         // 수정 전 그룹
         groupRepository.findById(groupDto.getGroupId())
-                .orElseThrow(() -> new RuntimeException("그룹 아이디에 해당하는 정보가 없습니다."));
+                .orElseThrow(() -> new WasdException(ErrorCode.NO_DATA,"그룹 아이디에 해당하는 정보가 없습니다."));
 
         // 수정 전 그룹_게임
         GroupGameInfo beforeGroupGame = groupGameInfoRepository.findByGroupId(groupDto.getGroupId())
-                .orElseThrow(() -> new RuntimeException("해당 그룹의 게임 정보가 없습니다."));
+                .orElseThrow(() -> new WasdException(ErrorCode.NO_DATA,"해당 그룹의 게임 정보가 없습니다."));
 
         // 권한 조회
         groupUserRepository.findByGroup_groupIdAndUser_userId(groupDto.getGroupId(), oAuth2User.getUserInfo().getId())
                 .filter(groupUser -> groupUser.getRole() == 0) // role 기반 권한 확인
-                .orElseThrow(() -> new RuntimeException("수정 권한이 없습니다."));
+                .orElseThrow(() -> new WasdException(ErrorCode.AUTH,"수정 권한이 없습니다.") );
 
         try {
             Group saveGroup = groupRepository.save(groupDto.toEntity());    // 그룹 수정
@@ -207,7 +214,7 @@ public class GroupService {
             groupGameInfoRepository.findByGroupId(groupDto.getGroupId()).ifPresent(groupGameInfoRepository::delete);
             groupGameInfoRepository.save(beforeGroupGame);
 
-            throw new RuntimeException("그룹 수정 중 오류가 발생했습니다. 다시 시도해 주세요.");
+            throw new WasdException(ErrorCode.DB,"그룹 수정 중 오류가 발생했습니다. 다시 시도해 주세요.");
         }
     }
 

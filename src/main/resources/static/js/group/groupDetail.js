@@ -58,8 +58,7 @@ var groupDetail = {
                     })
             ]);
         } catch (error) {
-            console.error(error)
-            alert('그룹 정보 조회 중 문제가 발생하였습니다. 잠시 후 다시 시도하세요.');
+            util.alert('error', '그룹 정보 조회 중 문제가 발생하였습니다. 잠시 후 다시 시도하세요.', '',undefined,undefined);
             popupMainClose();
         }
 

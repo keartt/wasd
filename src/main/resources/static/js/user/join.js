@@ -36,8 +36,8 @@ function changeStep(stepVal) {
 function userInfoSave(){
 
     if(saveGameInfoList.length === 0){
-        alert('선호하는 게임을 선택하세요.');
-        return;
+        util.alert('info', '선호하는 게임을 선택하세요.', '',undefined,undefined);
+                return;
     }
 
     // 사용자 정보
@@ -64,7 +64,7 @@ function userInfoSave(){
             window.location.href = '/main';
         },
         error: function (xhr) {
-            alert(xhr.responseText || '서버 오류가 발생했습니다. 다시 시도해 주세요.');
+            util.alert('error', xhr.responseJSON.msg || '서버 오류가 발생했습니다. 다시 시도해 주세요.' ,'',undefined,undefined);
         }
     });
 }

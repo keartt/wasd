@@ -1,5 +1,7 @@
 package com.wasd.common.oauth;
 
+import com.wasd.common.exception.ErrorCode;
+import com.wasd.common.exception.WasdException;
 import com.wasd.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,7 +27,7 @@ public class OAuth2UserInfo implements Serializable {
             case "google" -> ofGoogle(attributes);
             case "kakao" -> ofKakao(attributes);
             case "naver" -> ofNaver(attributes);
-            default -> throw new RuntimeException("제공되지 않는 로그인 유형입니다.");
+            default -> throw new WasdException(ErrorCode.BAD_REQ,"제공되지 않는 로그인 유형입니다.");
         };
     }
 

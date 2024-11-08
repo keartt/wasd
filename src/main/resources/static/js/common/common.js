@@ -22,14 +22,14 @@ function validation(fields) {
             const value = $('#' + id).val().trim();
 
             if (!value) {
-                alert(name + '은(는) 필수 입력 항목입니다.');
+                util.alert('info', name + '은(는) 필수 입력 항목입니다.', '', undefined,undefined);
                 $('#' + id).focus();
                 return false;
             }
 
             if (pattern != null && !pattern.test(value)) {
-                alert(message);
-                $('#' + id).focus();
+                util.alert('info', message, '', undefined,undefined);
+                $('#' + id).focus()
                 return false;
             }
         }

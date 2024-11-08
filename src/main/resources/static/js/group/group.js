@@ -31,7 +31,7 @@ function getGameInfoUser() {
             }
         },
         error: function (xhr) {
-            alert(xhr.responseText || '서버 오류가 발생했습니다. 다시 시도해 주세요.');
+            util.alert('error', xhr.responseJSON.msg || '서버 오류가 발생했습니다. 다시 시도해 주세요.' ,'',undefined,undefined);
         }, complete() {
             getAllGroupList();
         }
@@ -198,7 +198,7 @@ function joinGroup(groupId, groupNm){
 
 
         }, error: function (xhr) {
-            alert(xhr.responseText || '서버 오류가 발생했습니다. 다시 시도해 주세요.');
+            util.alert('error', xhr.responseJSON.msg || '서버 오류가 발생했습니다. 다시 시도해 주세요.' ,'',undefined,undefined);
         }
     })
 }

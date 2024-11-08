@@ -1,5 +1,7 @@
 package com.wasd.common.controller;
 
+import com.wasd.common.exception.ErrorCode;
+import com.wasd.common.exception.WasdException;
 import com.wasd.common.oauth.CustomOAuth2User;
 import com.wasd.common.oauth.OAuth2UserInfo;
 import com.wasd.user.repository.UserRepository;
@@ -33,7 +35,7 @@ public class OAuthTempController {
 
     @GetMapping("/auth/temp")
     public ResponseEntity<String> forceAuthentication(@RequestParam String userId, @RequestParam String secretKey, HttpSession session) {
-        if (!secretKey.equals(SECRET_KEY)) throw new RuntimeException("인증키가 다릅니다.");
+        if (!secretKey.equals(SECRET_KEY)) throw new WasdException(ErrorCode.AUTH,"인증키가 다릅니다.");
 
         // 사용자 정보가 있으면 DB에서, 없으면 하드코딩된 값 사용
         OAuth2UserInfo userInfo = userRepository.findById(userId)
