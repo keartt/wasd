@@ -229,10 +229,14 @@
     border-radius: 50%; /* 원 형태 */
     margin: auto 0 auto auto;
     background-color: gray; /* 기본 색상 (회색) */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+    transition: all 0.3s ease; /* 애니메이션 효과 */
 }
 
 .status-indicator.active {
     background-color: #2de42d; /* 활성 상태일 때 색상 (초록색) */
+    box-shadow: 0 0 15px rgba(45, 226, 45, 0.7); /* 초록색 그림자 추가 */
+    filter: blur(2px); /* 블러 효과 추가 */
 }
 
 .chat-info-message {
