@@ -1,5 +1,7 @@
 package com.wasd.user.service;
 
+import com.wasd.common.exception.ErrorCode;
+import com.wasd.common.exception.WasdException;
 import com.wasd.common.oauth.CustomOAuth2User;
 import com.wasd.gameInfo.service.GameInfoService;
 import com.wasd.user.dto.UserDto;
@@ -25,7 +27,7 @@ public class UserService {
     public UserDto insertUser(UserDto userDto, CustomOAuth2User oAuth2User){
         userRepository.findById(oAuth2User.getUserInfo().getId())
                 .ifPresent(user -> {
-                    throw new RuntimeException("이미 등록된 아이디입니다.");
+                    throw new WasdException(ErrorCode.ETC,"이미 등록된 아이디입니다.");
                 });
 
         return userRepository.save(userDto.toEntity(oAuth2User)).toDto();
@@ -39,7 +41,7 @@ public class UserService {
      */
     public UserDto updateUser(UserDto userDto, CustomOAuth2User oAuth2User){
         userRepository.findById(oAuth2User.getUserInfo().getId())
-                .orElseThrow(() -> new RuntimeException("유저 정보가 없습니다."));
+                .orElseThrow(() -> new WasdException(ErrorCode.NO_DATA,"유저 정보가 없습니다."));
         return userRepository.save(userDto.toEntity(oAuth2User)).toDto();
     }
 

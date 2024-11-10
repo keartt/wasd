@@ -266,12 +266,14 @@ select {
     align-items: center;
     height: 100%;
     width: 100%;
-    min-width: 1200px;
+    /*min-width: 1200px;*/
     overflow-y: auto;
 }
 
 .content-main::-webkit-scrollbar {
-    width: 0px;
+    width: 5px;
+    height: 5px;
+    border-radius: 20px;
 }
 
 .content-main::-webkit-scrollbar-track {
@@ -279,12 +281,15 @@ select {
 }
 
 .content-main::-webkit-scrollbar-thumb {
-    background-color: transparent;
+    /*background-color: transparent;*/
+    background-color: #5f6b79;
+    border-radius: 20px;
 }
 
 .content-main::-webkit-scrollbar-button {
     display: none;
 }
+
 
 /* 팝업 */
 .popup-main {
@@ -366,7 +371,7 @@ select {
     padding: 10px 20px;
     position: relative;
     background-color: var(--input-bg);
-    width: 250px;
+    max-width: 250px;
     height: 40px;
     border-radius: 20px;
     box-sizing: border-box;

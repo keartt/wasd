@@ -34,7 +34,7 @@ function changeStep(param, stepVal) {
         var isChangedGameInfoList = compareGameInfoLists(oriGameInfoList, saveGameInfoList);
         if (isChangedGameInfoList && confirm('변경된 게임 정보를 저장하시겠습니까?')) {
             if(saveGameInfoList.length === 0){
-                alert('선호하는 게임을 선택하세요.');
+                util.alert('info', '선호하는 게임을 선택하세요.', '',undefined,undefined);
                 return;
             }
             saveUserGameInfo(true); // 변경된 정보 저장 요청
@@ -126,11 +126,11 @@ function saveUserInfo(changeCheck){
                 userInfo = res;
                 setUserInfoField(userInfo);
                 if (!changeCheck) {
-                    alert('프로필 정보가 성공적으로 저장되었습니다.');
+                    util.alert('success', '프로필 정보가 성공적으로 저장되었습니다.', '',undefined,undefined);
                 }
             },
             error: function (xhr) {
-                alert(xhr.responseText || '서버 오류가 발생했습니다. 다시 시도해 주세요.');
+                util.alert('error', xhr.responseJSON.msg || '서버 오류가 발생했습니다. 다시 시도해 주세요.' ,'',undefined,undefined);
                 if (changeCheck) {
                     setUserInfoField(userInfo); // 수정 취소 -> 기존 값으로 리셋
                 }
@@ -187,7 +187,7 @@ function getGameInfoUser(){
             });
         },
         error: function (xhr) {
-            alert(xhr.responseText || '서버 오류가 발생했습니다. 다시 시도해 주세요.');
+            util.alert('error', xhr.responseJSON.msg || '서버 오류가 발생했습니다. 다시 시도해 주세요.' ,'',undefined,undefined);
         }
     });
 }
@@ -206,7 +206,7 @@ function addGameBtn(gameId) {
 // 사용자 정보 저장
 function saveUserGameInfo(changeCheck){
     if(saveGameInfoList.length === 0){
-        alert('선호하는 게임을 선택하세요.');
+        util.alert('info', '선호하는 게임을 선택하세요.', '',undefined,undefined);
         return;
     }
     $.ajax({
@@ -218,13 +218,13 @@ function saveUserGameInfo(changeCheck){
         async: false,
         success: function (res) {
             if(!changeCheck)
-                alert('게임 정보가 성공적으로 저장되었습니다.');
+                util.alert('success', '게임 정보가 성공적으로 저장되었습니다.', '',undefined,undefined);
 
             oriGameInfoList = saveGameInfoList;
             $('.profile-info-game-box .profile-info-game-btn').first().trigger('click');    // 첫번째 게임에 select 옵션 추가
         },
         error: function (xhr) {
-            alert(xhr.responseText || '서버 오류가 발생했습니다. 다시 시도해 주세요.');
+            util.alert('error', xhr.responseJSON.msg || '서버 오류가 발생했습니다. 다시 시도해 주세요.' ,'',undefined,undefined);
         }
     });
 }
