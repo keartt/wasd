@@ -2,8 +2,7 @@
 
     <div class="groupView-title-box">
         <img />
-<!--        <h1 th:text="${groupInfo.groupNm}"></h1>-->
-        <h1>TEST</h1>
+        <h1></h1>
     </div>
 
 
@@ -30,15 +29,39 @@
     </div>
 
     <div class="groupView-game-box">
-        <span class="groupView-title"><i class="fa-solid fa-heart"></i> 이런 사람을 선호해요</span>
+        <span class="groupView-title"><i class="fa-regular fa-lightbulb"></i> 이런 사람을 선호해요</span>
 
         <div class="groupView-gameNm">
             <img />
             <span></span>
         </div>
 
-
-
+        <div class="groupView-gameInfo">
+            <div class="groupView-gameInfo-col">
+                <div class="groupView-gameInfo-col-item">
+                    <input type="text" >
+                    <label>티어</label>
+                    <span>골드</span>
+                </div>
+                <div class="groupView-gameInfo-col-item">
+                    <input type="text" >
+                    <label>라인</label>
+                    <span>탑</span>
+                </div>
+            </div>
+            <div class="groupView-gameInfo-col">
+                <div class="groupView-gameInfo-col-item">
+                    <input type="text" >
+                    <label>티어</label>
+                    <span>골드</span>
+                </div>
+                <div class="groupView-gameInfo-col-item">
+                    <input type="text" >
+                    <label>라인</label>
+                    <span>탑</span>
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -48,5 +71,3 @@
 
 <link th:inline="css" th:href="@{/css/group/groupView.css}" rel="stylesheet"/>
 <script th:inline="javascript" type="text/javascript" th:src="@{/js/group/groupView.js}"></script>
-
-<script th:inline="javascript">var groupInfo = /*[[${groupInfo}]]*/ {};</script>

@@ -44,7 +44,6 @@ var groupDetail = {
                 // json
                 util.ajaxPromise({ url: `/group/${this.groupId}`, method: 'GET', dataType: 'json' })
                     .then(data => {
-                        console.log(data);
                         // 그룹 정보로 HTML 요소 업데이트
                         $('.groupView-title-box img').attr('src', data.groupImg); // 이미지 업데이트
                         $('.groupView-title-box h1').text(data.groupNm); // 그룹 이름 업데이트
@@ -55,9 +54,21 @@ var groupDetail = {
                         $('.groupView-info-dc-box pre').text(data.groupDc); // 그룹 설명 업데이트
                         $('.groupView-gameNm img').attr('src', `/images/gameImg/${data.gameInfo.gameId}.png`); // 게임 이미지 업데이트
                         $('.groupView-gameNm span').text(data.gameInfo.gameNm); // 게임 이름 업데이트
+
+                        return data.gameInfo;
                     })
+                    // .then(userGameInfo => {
+                    //     util.ajaxPromise({ url: `/gameInfo/${userGameInfo.gameId}`, method: 'GET', dataType: 'json' })
+                    //         .then(gameData => {
+                    //
+                    //
+                    //
+                    //             console.log(gameData);
+                    //         })
+                    // })
             ]);
         } catch (error) {
+            console.log(error);
             util.alert('error', '그룹 정보 조회 중 문제가 발생하였습니다. 잠시 후 다시 시도하세요.', '',undefined,undefined);
             popupMainClose();
         }
@@ -69,6 +80,7 @@ var groupDetail = {
     // 초기화 (중복 방지)
     destroy(){
         this.groupId = null;
+        this.userGameInfo = {};
         $('#group-dtl-li').off('click', this.openGroupInfo.bind(this));
         $('#chat-submit').off('click', sendMessage);
         $('#chat-text').off('keydown');
