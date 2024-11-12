@@ -161,6 +161,16 @@
     gap: 20px; /* 요소 사이의 간격 조절 */
 }
 
-.dc-limit-btn{
-    width: 70px;
+.dc-limit-btn-box{
+    display: flex;
+    gap: 5px;
+    align-items: center;
 }
+.dc-limit-info-btn{
+    width: 40px;
+}
+.dc-limit-join-btn{
+    width: 55px;
+}
+
+
