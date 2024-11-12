@@ -153,7 +153,8 @@ function getAllGroupList() {
                                         </div>
                                     </div>
                                     <div class="dc-limit-btn-box">
-                                        <button class="dc-limit-btn bt" onclick="joinGroup(${item.groupId}, '${item.groupNm}')"><i class="fa-solid fa-arrow-right-to-bracket"></i></button>
+                                        <button class="dc-limit-info-btn bt" onclick="infoGroup(${item.groupId})"><i class="fa-solid fa-info"></i></button>
+                                        <button class="dc-limit-join-btn bt" onclick="joinGroup(${item.groupId}, '${item.groupNm}')"><i class="fa-solid fa-arrow-right-to-bracket"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -201,6 +202,19 @@ function joinGroup(groupId, groupNm){
             util.alert('error', xhr.responseJSON.msg || '서버 오류가 발생했습니다. 다시 시도해 주세요.' ,'',undefined,undefined);
         }
     })
+}
+
+// 그룹 정보 조회
+function infoGroup(groupId){
+    // HTML 가져오기
+    util.ajaxPromise({
+        url: '/main/group/view',
+        method: 'GET',
+        dataType: 'html'
+    }).then(res => {
+        $('.popup-main-box').html(res);
+        groupView.init(groupId);
+    });
 }
 
 // 내 그룹 찾기 -> 화면 전환

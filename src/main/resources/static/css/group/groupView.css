@@ -6,7 +6,7 @@
     width: 100%;
     max-width: 1000px;
     height: 100%;
-    min-height: 1000px;
+    min-height: 650px;
 }
 
 .groupView-title-box{
@@ -59,6 +59,7 @@
     display: flex;
     gap: 10px;
     align-items: center;
+    padding: 0 20px;
 }
 
 .groupView-gameNm img{
@@ -66,4 +67,38 @@
     height: 25px;
     object-fit: cover;
     border: 10px;
+}
+
+.groupView-gameInfo{
+    gap: 30px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 20px;
+}
+
+
+.groupView-gameInfo-col{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.groupView-gameInfo-col-item {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.groupView-gameInfo-col-item input {
+    color: white;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    border-bottom: solid var(--group-bg-active) 1px;
+}
+
+.groupView-gameInfo-col-item label {
+    color: white;
+    font-size: 17px;
 }

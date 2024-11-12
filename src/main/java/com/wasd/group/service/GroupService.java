@@ -160,7 +160,7 @@ public class GroupService {
 
         Integer currentUserCount = groupUserRepository.findByGroup_groupId(group.getGroupId()).size();
         if(currentUserCount == group.getMaxUserCount()){
-            throw new WasdException(ErrorCode.ETC,"해당 그룹은 이미 인원이 가득 찼습니다. 다른 그룹을 찾아보시거나 새로운 그룹을 생성해보세요.");
+            throw new WasdException(ErrorCode.ETC,"해당 그룹은 이미 인원이 가득 찼습니다.\n다른 그룹을 찾아보시거나 새로운 그룹을 생성해보세요.");
         }
 
         // 그룹_사용자 생성
