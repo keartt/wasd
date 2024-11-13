@@ -1,8 +1,11 @@
 var groupDetail = {
     groupId: null,
+    groupNm:null,
     init() {
         this.destroy();
         this.groupId = $('.group-detail.active').data('groupid');
+        this.groupNm = $('.group-detail.active').data('groupnm');
+        $('#groupDetail-info-title').text(this.groupNm);
         this.domEvt();
         connect(this.groupId);
     },
@@ -47,6 +50,7 @@ var groupDetail = {
     // 초기화 (중복 방지)
     destroy(){
         this.groupId = null;
+        this.groupNm = null,
         $('#group-dtl-li').off('click', this.openGroupInfo.bind(this));
         $('#chat-submit').off('click', sendMessage);
         $('#chat-text').off('keydown');
