@@ -28,6 +28,11 @@ public class GroupController {
         return ResponseEntity.ok(groupService.findGroupByGameId(gameId));
     }
 
+    @GetMapping("/game/{gameId}/recommend")
+    public ResponseEntity<List<GroupDto>> findRcmGroupByGameId(@PathVariable String gameId, @AuthenticationPrincipal CustomOAuth2User oAuth2User){
+        return ResponseEntity.ok(groupService.findRcmGroupByGameId(gameId, oAuth2User.getUserInfo().getId()));
+    }
+
     /**
      * 로그인 사용자 ID로 참여 그룹 조회
      * @param oAuth2User

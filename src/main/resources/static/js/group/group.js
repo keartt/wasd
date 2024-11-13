@@ -34,6 +34,7 @@ function getGameInfoUser() {
             util.alert('error', xhr.responseJSON.msg || '서버 오류가 발생했습니다. 다시 시도해 주세요.' ,'',undefined,undefined);
         }, complete() {
             getAllGroupList();
+            getRcmGroupList();    // 추천 그룹 목록 조회
         }
     });
 }
@@ -80,6 +81,7 @@ function userGameInfoSelectEvent() {
         if(currentValue != selectedValue){
             $('#userGameInfoSelect #selectedItem').html('<img src="/images/gameImg/' + selectedValue + '.png" /><span data-game="' + selectedValue + '">' + selectedText + '</span>');
             getAllGroupList(); // 그룹 목록 조회
+            getRcmGroupList();    // 추천 그룹 목록 조회
         }
         $('#userGameInfoSelect').removeClass('open');
     });
@@ -174,6 +176,23 @@ function getAllGroupList() {
         }
     });
 }
+
+// 추천 게임 목록
+function getRcmGroupList(){
+
+    var gameId = $('#userGameInfoSelect #selectedItem span').data('game');
+
+    $.ajax({
+        url: '/group/game/' + gameId + '/recommend',
+        method: 'GET',
+        dataType: 'json',
+        async: false,
+        success: function (res) {
+            console.log(res);
+        }
+    });
+}
+
 
 // 그룹 참여
 function joinGroup(groupId, groupNm){
