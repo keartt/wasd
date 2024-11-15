@@ -102,7 +102,9 @@ public class GroupService {
                 String userVal = userGameInfo.getOrDefault(key, "").toString().trim();
                 String groupVal = groupGameInfo.getOrDefault(key, "").toString().trim();
 
-                if(userVal.equals("") || groupVal.equals("")){   // 상관없음
+                if(groupVal.equals("")){    // 그룹 상관없음
+                    total += 3;
+                } else if(userVal.equals("")){   // 사용자 상관없음
                     total += 5;
                 } else if(userVal.equals(groupVal) ){   // 동일
                     total += 10;
@@ -114,6 +116,7 @@ public class GroupService {
         List<GroupDto> sortedGroupList = groupSort.entrySet().stream()
                 .sorted(Map.Entry.<Integer, List<GroupDto>>comparingByKey().reversed())  // 점수 내림차순 정렬
                 .flatMap(entry -> entry.getValue().stream())  // 각 점수별 그룹 리스트를 하나의 스트림으로
+                .limit(8)   // 최대 개수
                 .collect(Collectors.toList());
 
         return sortedGroupList;

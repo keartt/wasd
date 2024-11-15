@@ -1,3 +1,6 @@
+
+
+
 function initGroup() {
     getGameInfoUser();          // 게임 목록
     recommendSlideEvent();      // 추천 그룹 이벤트
