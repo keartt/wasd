@@ -3,7 +3,7 @@
 
 function initGroup() {
     getGameInfoUser();          // 게임 목록
-    recommendSlideEvent();      // 추천 그룹 이벤트
+    // recommendSlideEvent();      // 추천 그룹 이벤트
     userGameInfoSelectEvent();  // select
 }
 
@@ -43,30 +43,30 @@ function getGameInfoUser() {
 }
 
 // 추천 그룹
-function recommendSlideEvent() {
-    $('.rcm-group-item-list').slick({
-        rows: 1,
-        slidesToShow: 4,        // 화면에 몇개까지 보여질 것인지
-        slidesToScroll: 1,      // 넘길 개수
-        autoplay: true,         // 슬라이드 자동 넘기기
-        autoplaySpeed: 2000,    // 자동 넘기기 시간
-        arrows: false,           // 기본 화살표 비활성화
-        prevArrow: $('#prev'), //이전 화살표만 변경
-        nextArrow: $('#next'), //다음 화살표만 변경
-        initialSlide: 0,
-        draggable: false,
-    });
-
-    // 커스텀 버튼 이벤트 추가
-    $('#prev').on('click', function () {
-        $('.rcm-group-item-list').slick('slickPrev');
-    });
-
-    $('#next').on('click', function () {
-        $('.rcm-group-item-list').slick('slickNext');
-    });
-
-}
+// function recommendSlideEvent() {
+//     $('.rcm-group-item-list').slick({
+//         rows: 1,
+//         slidesToShow: 4,        // 화면에 몇개까지 보여질 것인지
+//         slidesToScroll: 1,      // 넘길 개수
+//         autoplay: true,         // 슬라이드 자동 넘기기
+//         autoplaySpeed: 2000,    // 자동 넘기기 시간
+//         arrows: false,           // 기본 화살표 비활성화
+//         prevArrow: $('#prev'), //이전 화살표만 변경
+//         nextArrow: $('#next'), //다음 화살표만 변경
+//         initialSlide: 0,
+//         draggable: false,
+//     });
+//
+//     // 커스텀 버튼 이벤트 추가
+//     $('#prev').on('click', function () {
+//         $('.rcm-group-item-list').slick('slickPrev');
+//     });
+//
+//     $('#next').on('click', function () {
+//         $('.rcm-group-item-list').slick('slickNext');
+//     });
+//
+// }
 
 // select 이벤트
 function userGameInfoSelectEvent() {
@@ -183,6 +183,12 @@ function getAllGroupList() {
 // 추천 게임 목록
 function getRcmGroupList(){
 
+    // 슬라이더 초기화가 되었으면 unslick 호출
+    if ($('.rcm-group-item-list').hasClass('slick-initialized')) {
+        $('.rcm-group-item-list').slick('unslick');
+    }
+    $('.rcm-group-item-list').empty();
+
     var gameId = $('#userGameInfoSelect #selectedItem span').data('game');
 
     $.ajax({
@@ -191,7 +197,67 @@ function getRcmGroupList(){
         dataType: 'json',
         async: false,
         success: function (res) {
-            console.log(res);
+            var addRcmTag = '';
+            res.forEach(function (item) {
+                addRcmTag += `
+                    <div class="rcm-group-item-box">
+        
+                        <div class="rcm-group-item-img">
+                            <img src="${item.groupImg || '/images/gameImg/'+this.gameId+'.png'}">
+                        </div>
+                        <div class="rcm-group-item-dc-box">
+                            <div class="dc-title-box">
+                                <span>［</span>
+                                <div class="dc-title">${item.groupNm}</div>
+                                <span>］</span>
+                            </div>
+                            <div class="dc-content">
+                                <pre>${item.groupDc}</pre>
+                            </div>
+                            <div class="dc-limit">
+                                <div class="dc-limit-info">
+                                    <div>
+                                        <i class="fa-solid fa-user"></i>
+                                        <span>${item.userCount} / ${item.maxUserCount}</span>
+                                    </div>
+                                    <div>
+                                        <i class="fa-regular fa-clock"></i>
+                                        <span>${item.startTime ? item.startTime.slice(0, 5) : ''} ${item.startTime || item.endTime ? '~' : 'ALL TIME'} ${item.endTime ? item.endTime.slice(0, 5) : ''}</span>
+                                    </div>
+                                </div>
+                                <div class="dc-limit-btn-box">
+                                    <button class="dc-limit-info-btn bt" onclick="infoGroup(${item.groupId})"><i class="fa-solid fa-info"></i></button>
+                                    <button class="dc-limit-join-btn bt" onclick="joinGroup(${item.groupId}, '${item.groupNm}')"><i class="fa-solid fa-arrow-right-to-bracket"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            $('.rcm-group-item-list').append(addRcmTag);
+
+            $('.rcm-group-item-list').slick({
+                rows: 1,
+                slidesToShow: 4,        // 화면에 몇개까지 보여질 것인지
+                slidesToScroll: 1,      // 넘길 개수
+                autoplay: true,         // 슬라이드 자동 넘기기
+                autoplaySpeed: 2000,    // 자동 넘기기 시간
+                arrows: false,           // 기본 화살표 비활성화
+                prevArrow: $('#prev'), //이전 화살표만 변경
+                nextArrow: $('#next'), //다음 화살표만 변경
+                initialSlide: 0,
+                draggable: false,
+            });
+
+            // 커스텀 버튼 이벤트 추가
+            $('#prev').off('click').on('click', function () {
+                $('.rcm-group-item-list').slick('slickPrev');
+            });
+
+            $('#next').off('click').on('click', function () {
+                $('.rcm-group-item-list').slick('slickNext');
+            });
+
         }
     });
 }
@@ -217,7 +283,7 @@ function joinGroup(groupId, groupNm){
             getMyGroupList();   // 내 그룹 새로고침
 
             // 생성한 방으로 화면 전환
-            findGroupDetail(groupId);
+            $("[data-groupid='"+ groupId+"']").trigger("click");
 
 
         }, error: function (xhr) {
@@ -239,7 +305,3 @@ function infoGroup(groupId){
     });
 }
 
-// 내 그룹 찾기 -> 화면 전환
-function findGroupDetail(groupId){
-    $("[data-groupid='"+ groupId+"']").trigger("click");
-}

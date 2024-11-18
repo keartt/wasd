@@ -189,6 +189,18 @@ function groupNewSave(){
                 name: '인원수',
                 pattern: /^(?:[2-9][0-9]*|1[0-9][0-9]*)$/, // 1 이상의 숫자만 허용
                 message: '인원수는 2 이상의 숫자만 허용됩니다.'
+            },
+            {
+                id: 'startTime',
+                name: '게임 시작 시간',
+                pattern: null,
+                message: null
+            },
+            {
+                id: 'endTime',
+                name: '게임 종료 시간',
+                pattern: null,
+                message: null
             }
         ];
         if (!validation(groupfields)) { return; }
@@ -230,7 +242,7 @@ function groupNewSave(){
                 getMyGroupList();
 
                 // 생성한 방으로 화면 전환
-                findGroupDetail(res.groupId);
+                $("[data-groupid='"+ res.groupId +"']").trigger("click");
 
             },
             error: function (xhr) {

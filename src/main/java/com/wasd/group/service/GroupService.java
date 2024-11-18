@@ -15,12 +15,15 @@ import com.wasd.group.entity.Group;
 import com.wasd.group.entity.GroupUser;
 import com.wasd.group.repository.GroupRepository;
 import com.wasd.group.repository.GroupUserRepository;
+import com.wasd.user.dto.UserDto;
 import com.wasd.user.entity.User;
 import com.wasd.user.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -69,7 +72,16 @@ public class GroupService {
 
 
     public List<GroupDto> findRcmGroupByGameId(String gameId, String userId) {
+
         // 사용자 정보
+        UserDto userInfo = userRepository.findById(userId)
+                .map(User::toDto)
+                .orElseThrow(() -> new WasdException(ErrorCode.NO_DATA,"유저 정보가 없습니다."));
+
+        LocalTime userStartTime = userInfo.getStartTime(); // 사용자 시작 시간
+        LocalTime userEndTime = userInfo.getEndTime();     // 사용자 종료 시간
+
+        // 사용자 게임 정보
         Map<String, Object> userGameInfo = userGameInfoRepository.findByUserIdAndGameId(userId, gameId)
                 .map(resUserGameInfo -> {
                     return resUserGameInfo.getGameInfoList().stream().findFirst()
@@ -78,17 +90,29 @@ public class GroupService {
                 })
                 .orElseThrow(() -> new WasdException(ErrorCode.NO_DATA, "게임 아이디에 해당하는 유저 정보가 없습니다."));
 
-
         // 전체 그룹 목록
         List<GroupDto> groupList = groupGameInfoRepository.findByGameInfo_GameIdOrderByGroupIdDesc(gameId).stream()
                 .filter(groupGameInfo -> groupUserRepository.findByGroup_groupIdAndUser_userId(groupGameInfo.getGroupId(), userId).isEmpty())   // 사용자가 가입안한 그룹만 필터링
-                .map(groupGameInfo -> {     // 그룹 조회
+                .map(groupGameInfo -> {
                     return groupRepository.findById(groupGameInfo.getGroupId())
-                            .map(groupInfo -> groupInfo.toDto(groupGameInfo.getGameInfo().toDto()))
+                            .map(groupInfo -> {
+                                List<GroupUser> groupUser = groupUserRepository.findByGroup_groupId(groupInfo.getGroupId());
+                                return GroupDto.builder()
+                                        .groupId(groupInfo.getGroupId())
+                                        .groupNm(groupInfo.getGroupNm())
+                                        .groupDc(groupInfo.getGroupDc())
+                                        .groupImg(groupInfo.getGroupImg())
+                                        .maxUserCount(groupInfo.getMaxUserCount())
+                                        .createDt(groupInfo.getCreateDt())
+                                        .startTime(groupInfo.getStartTime())
+                                        .endTime(groupInfo.getEndTime())
+                                        .gameInfo(groupGameInfo.getGameInfo().toDto())
+                                        .userCount(groupUser.isEmpty() ? 0 : groupUser.size())
+                                        .build();
+                            })
                             .orElseThrow(() -> new WasdException(ErrorCode.NO_DATA, "그룹 아이디에 해당하는 정보가 없습니다."));
                 })
                 .collect(Collectors.toList());
-
 
         Map<Integer, List<GroupDto>> groupSort = new HashMap<>();
         for(GroupDto group : groupList){
@@ -96,20 +120,43 @@ public class GroupService {
 
             int total = 0;
 
-            // 게임 속성 점수
+            // ## 게임 속성 점수
             for (String key : userGameInfo.keySet()) {
 
                 String userVal = userGameInfo.getOrDefault(key, "").toString().trim();
                 String groupVal = groupGameInfo.getOrDefault(key, "").toString().trim();
 
-                if(groupVal.equals("")){    // 그룹 상관없음
-                    total += 3;
-                } else if(userVal.equals("")){   // 사용자 상관없음
+                if(userVal.equals("")){    // 사용자 상관없음
                     total += 5;
+                } else if(groupVal.equals("")){   // 그룹 상관없음
+                    total += 3;
                 } else if(userVal.equals(groupVal) ){   // 동일
                     total += 10;
                 }
             }
+
+
+            // ## 게임 시간대 점수
+            LocalTime groupStartTime = group.getStartTime(); // 그룹 시작 시간
+            LocalTime groupEndTime = group.getEndTime();     // 그룹 종료 시간
+
+            // 상관없음
+            if(userStartTime == null || userEndTime == null || groupStartTime == null || groupEndTime == null){
+                total += 2;
+            }
+            // 사용자와 그룹의 시간대가 완전히 겹침 => user 14~17 / group 14~17
+            else if (!userStartTime.isBefore(groupStartTime) && !userEndTime.isAfter(groupEndTime)) {
+                total += 10;
+            }
+            // 그룹 시간대가 사용자 시간대에 완전히 포함 => group 14~17 / user 15~16
+            else if (!groupStartTime.isBefore(userStartTime) && !groupEndTime.isAfter(userEndTime)) {
+                total += 8;
+            }
+            // 시간대 일부 겹침 => group 14~17 / user 13~15
+            else if (userStartTime.isBefore(groupEndTime) && userEndTime.isAfter(groupStartTime)) {
+                total += 5;
+            }
+
             groupSort.computeIfAbsent(total, k -> new ArrayList<>()).add(group);
         }
 
@@ -122,7 +169,6 @@ public class GroupService {
         return sortedGroupList;
 
     }
-
 
     /**
      * 로그인 사용자 ID로 참여 그룹 조회
