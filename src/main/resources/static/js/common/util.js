@@ -22,14 +22,20 @@ const util ={
         });
     },
 
-    catchErr(e, msg){
+    catchErr(param){
         try {
-            var error = JSON.parse(e.responseText);
+            var error = JSON.parse(param.err.responseText);
             console.error(error);
+            if (error.code == '5007') { // == 404
+                param.redirect = '/';
+            }
         } catch (e) {
-            console.error(e);
+            console.error(param.err);
         } finally {
-            this.alert('error', '오류 발생', msg);
+            this.alert('error', '오류 발생', param.msg + "\n 오류가 발생했습니다. \n 잠시 후 다시 시도해주세요");
+            if (param.redirect) {
+                window.href = param.redirect;
+            }
         }
     },
 
