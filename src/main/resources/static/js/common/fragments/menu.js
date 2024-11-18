@@ -59,7 +59,7 @@ function getMyGroupList(){
             res.forEach(function (item) {
                 addTag += `
                         <div class="groups-collection">
-                            <div class="unread group group-detail" role="button" data-url="/main/group/${item.groupId}" data-groupid="${item.groupId}">
+                            <div class="unread group group-detail" role="button" data-url="/main/group/${item.groupId}" data-groupid="${item.groupId}" data-groupnm="${item.groupNm}">
                                 <div class="group-icon"><img src="${item.groupImg}" /></div>
                             </div>
                         </div>

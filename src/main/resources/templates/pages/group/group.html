@@ -26,38 +26,6 @@
             <button class="rcm-group-item-btn prev" id="prev" aria-label="Previous" type="button" ><i class="fa-solid fa-angle-left"></i></button>
 
             <div class="rcm-group-item-list">
-                <div th:each="i : ${#numbers.sequence(1, 10)}" class="rcm-group-item-box">
-                    <div class="rcm-group-item-img">
-                        <img th:src="@{/images/gameImg/lol.png}">
-                    </div>
-                    <div class="rcm-group-item-dc-box">
-                        <div class="dc-title-box">
-                            <span>［</span>
-                            <div class="dc-title">자유랭 5인팟 구함 <span th:text="${i}">1</span></div>
-                            <span>］</span>
-                        </div>
-                        <div class="dc-content">
-                            그룹 설명이다
-                        </div>
-                        <div class="dc-limit">
-                            <div class="dc-limit-info">
-                                <div>
-                                    <i class="fa-solid fa-user"></i>
-                                    <span>5 / 10</span>
-                                </div>
-                                <div>
-                                    <i class="fa-regular fa-clock"></i>
-                                    <span>22:00 ~ 24:00</span>
-                                </div>
-                            </div>
-                            <div class="dc-limit-btn-box">
-                                <button class="dc-limit-info-btn bt" ><i class="fa-solid fa-info"></i></button>
-                                <button class="dc-limit-join-btn bt"><i class="fa-solid fa-arrow-right-to-bracket"></i></button>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
             </div>
 

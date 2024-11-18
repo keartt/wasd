@@ -26,7 +26,7 @@
                 <div class="input-wrapper" style="width: 50%;">
                     <i class="fa-solid fa-hourglass-start"></i>
                     <select id="startTime" name="startTime" class="new-select-style">
-                        <option value="" selected>게임 시작 시간</option>
+                        <option value="" selected>게임 시작 시간 *</option>
                         <option th:each="hour : ${#numbers.sequence(0, 23)}"
                                 th:value="${#numbers.formatInteger(hour, 2)} + ':00:00'"
                                 th:text="${hour} + '시'">
@@ -37,7 +37,7 @@
                 <div class="input-wrapper" style="width: 50%;">
                     <i class="fa-solid fa-hourglass-end"></i>
                     <select id="endTime" name="endTime" class="new-select-style">
-                        <option value="" selected>게임 종료 시간</option>
+                        <option value="" selected>게임 종료 시간 *</option>
                         <option th:each="hour : ${#numbers.sequence(0, 23)}"
                                 th:value="${#numbers.formatInteger(hour, 2)} + ':00:00'"
                                 th:text="${hour} + '시'">
