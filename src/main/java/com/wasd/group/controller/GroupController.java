@@ -2,6 +2,7 @@ package com.wasd.group.controller;
 
 import com.wasd.common.oauth.CustomOAuth2User;
 import com.wasd.group.dto.GroupDto;
+import com.wasd.group.dto.GroupUserDto;
 import com.wasd.group.service.GroupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,12 @@ public class GroupController {
         return ResponseEntity.ok(groupService.findGroupByGameId(gameId));
     }
 
+    /**
+     * 추천 그룹 목록 조회
+     * @param gameId
+     * @param oAuth2User
+     * @return
+     */
     @GetMapping("/game/{gameId}/recommend")
     public ResponseEntity<List<GroupDto>> findRcmGroupByGameId(@PathVariable String gameId, @AuthenticationPrincipal CustomOAuth2User oAuth2User){
         return ResponseEntity.ok(groupService.findRcmGroupByGameId(gameId, oAuth2User.getUserInfo().getId()));
@@ -40,7 +47,7 @@ public class GroupController {
      */
     @GetMapping("/user")
     public ResponseEntity<List<GroupDto>> findGroupByUserId(@AuthenticationPrincipal CustomOAuth2User oAuth2User){
-        return ResponseEntity.ok(groupService.findGroupByUserId(oAuth2User));
+        return ResponseEntity.ok(groupService.findGroupByUserId(oAuth2User.getUserInfo().getId()));
     }
 
 
@@ -52,7 +59,7 @@ public class GroupController {
      */
     @PostMapping("/")
     public ResponseEntity<GroupDto> insertGroup(@RequestBody GroupDto groupDto, @AuthenticationPrincipal CustomOAuth2User oAuth2User){
-        return ResponseEntity.ok(groupService.insertGroup(groupDto, oAuth2User));
+        return ResponseEntity.ok(groupService.insertGroup(groupDto, oAuth2User.getUserInfo().getId()));
     }
 
     /**
@@ -63,7 +70,7 @@ public class GroupController {
      */
     @PutMapping("/")
     public ResponseEntity<GroupDto> updateGroup(@RequestBody GroupDto groupDto, @AuthenticationPrincipal CustomOAuth2User oAuth2User){
-        return ResponseEntity.ok(groupService.updateGroup(groupDto, oAuth2User));
+        return ResponseEntity.ok(groupService.updateGroup(groupDto, oAuth2User.getUserInfo().getId()));
     }
 
     /**
@@ -74,13 +81,22 @@ public class GroupController {
      */
     @PostMapping("/join")
     public ResponseEntity<GroupDto> joinGroup(@RequestBody GroupDto groupDto, @AuthenticationPrincipal CustomOAuth2User oAuth2User){
-        return ResponseEntity.ok(groupService.joinGroup(groupDto, oAuth2User));
+        return ResponseEntity.ok(groupService.joinGroup(groupDto, oAuth2User.getUserInfo().getId()));
     }
 
+    /**
+     * 그룹 ID로 조회
+     * @param groupId
+     * @return
+     */
     @GetMapping("/{groupId}")
-    public ResponseEntity<GroupDto> getGroupInfo(@PathVariable Long groupId){
+    public ResponseEntity<GroupDto> findGroupByGroupId(@PathVariable Long groupId){
         return ResponseEntity.ok(groupService.findGroupByGroupId(groupId));
     }
 
+    @DeleteMapping("/{groupId}")
+    public ResponseEntity<GroupUserDto> deleteGroupByGroupId(@PathVariable Long groupId, @AuthenticationPrincipal CustomOAuth2User oAuth2User){
+        return ResponseEntity.ok(groupService.deleteGroupByGroupId(groupId, oAuth2User.getUserInfo().getId()));
+    }
 
 }

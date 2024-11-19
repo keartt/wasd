@@ -197,11 +197,16 @@ function getRcmGroupList(){
         dataType: 'json',
         async: false,
         success: function (res) {
+
+            if(res.length == 0){
+                $('.rcm-group-box').css('display', 'none');
+            }
+
             var addRcmTag = '';
             res.forEach(function (item) {
                 addRcmTag += `
                     <div class="rcm-group-item-box">
-        
+
                         <div class="rcm-group-item-img">
                             <img src="${item.groupImg || '/images/gameImg/'+this.gameId+'.png'}">
                         </div>

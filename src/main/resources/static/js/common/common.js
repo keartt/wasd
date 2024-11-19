@@ -22,14 +22,12 @@ function validation(fields) {
             const value = $('#' + id).val().trim();
 
             if (!value) {
-                util.alert('info', name + '은(는) 필수 입력 항목입니다.', '', undefined,undefined);
-                $('#' + id).focus();
+                util.alert('info', name + '은(는) 필수 입력 항목입니다.', '', async () => $('#' + id).focus(),undefined);
                 return false;
             }
 
             if (pattern != null && !pattern.test(value)) {
-                util.alert('info', message, '', undefined,undefined);
-                $('#' + id).focus()
+                util.alert('info', message, '', async () =>$('#' + id).focus(),undefined);
                 return false;
             }
         }

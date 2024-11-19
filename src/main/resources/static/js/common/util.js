@@ -62,15 +62,21 @@ const util ={
             allowEscapeKey: false,
             customClass: {
                 container: 'custom-alert-container' // 스타일 변경하고 싶다면 새로만든 클래스 여기다 넣거나 sweetalert2.min 수정
-            }
+            },
+            returnFocus: false
         }).then((result) => {
             if (result.isConfirmed) { //확인 시
                 if(confirmCallback !== undefined) confirmCallback();
                 return true;
-            } else if (result.isDenied) { //취소 시
-                if(confirmCallback !== undefined) cancelCallback();
+            } else if (result.isDismissed) { // 취소
+                if(cancelCallback !== undefined) cancelCallback();
                 return false;
             }
+            //
+            // else if (result.isDenied) { //취소 시
+            //     if(confirmCallback !== undefined) cancelCallback();
+            //     return false;
+            // }
         });
     },
 
