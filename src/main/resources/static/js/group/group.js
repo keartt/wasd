@@ -302,6 +302,6 @@ function infoGroup(groupId){
     }).then(res => {
         $('.popup-main-box').html(res);
         groupView.init(groupId);
-    });
+    }).catch(e => util.catchErr({err: e, msg: '그룹 정보 조회 중', redirect: '/'}));
 }
 
