@@ -10,7 +10,7 @@ var groupView = {
         this.domEvt();          // 이벤트
     },
     domEvt(){
-        $('.popup-main-close-btn').on('click', function(){  // 팝업 창 닫으면 내용 초기화
+        $('.popup-main-close-btn').on('click', () => {  // 팝업 창 닫으면 내용 초기화
             this.destroy();
         });
     },

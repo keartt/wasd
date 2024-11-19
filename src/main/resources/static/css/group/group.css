@@ -21,9 +21,11 @@
 
 /* # 추천 그룹*/
 .rcm-group-box{
+    border-bottom: 1px #d3d3d391 solid;
     gap: 30px;
     display: flex;
     flex-direction: column;
+    padding-bottom: 50px;
 }
 
 .all-group-title{
@@ -141,10 +143,11 @@
 }
 
 .all-group-box{
-    border-top:1px #d3d3d391 solid;
+    /*border-top:1px #d3d3d391 solid;*/
     flex: 1;
-    padding: 50px 0;
+    /*padding: 50px 0;*/
     margin: 0 50px;
+    padding-bottom: 50px;
     gap: 20px;
     display: flex;
     flex-direction: column;

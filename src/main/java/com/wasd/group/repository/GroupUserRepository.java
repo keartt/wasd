@@ -23,5 +23,11 @@ public interface GroupUserRepository extends JpaRepository<GroupUser, Long> {
      */
     List<GroupUser> findByGroup_groupId(Long groupId);
 
+    /**
+     * 사용자 ID로 참여 그룹 조회
+     * @param userId
+     * @return
+     */
     List<GroupUser> findByUser_userId(String userId);
+
 }
