@@ -314,7 +314,9 @@ function openGameInfoPopup() {
         }
         addTag += `
             <button class="profile-info-game-btn" id="popup-${item.gameId}">
-                <img src="/images/gameImg/${item.gameId}.png" />
+                <span title="${item.gameNm}">
+                    <img src="/images/gameImg/${item.gameId}.png" />
+                </span>
             </button>
         `;
     });
