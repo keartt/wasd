@@ -58,11 +58,13 @@ function getMyGroupList(){
             var addTag = '';
             res.forEach(function (item) {
                 addTag += `
-                        <div class="groups-collection">
-                            <div class="unread group group-detail" role="button" data-url="/main/group/${item.groupId}" data-groupid="${item.groupId}" data-groupnm="${item.groupNm}">
-                                <div class="group-icon"><img src="${item.groupImg}" /></div>
+                        <span title="그룹 채팅방 [${item.groupNm}]">
+                            <div class="groups-collection">
+                                <div class="unread group group-detail" role="button" data-url="/main/group/${item.groupId}" data-groupid="${item.groupId}" data-groupnm="${item.groupNm}">
+                                    <div class="group-icon"><img src="${item.groupImg}" /></div>
+                                </div>
                             </div>
-                        </div>
+                        </span>
                     `;
             });
             $('#myGroups').append(addTag);

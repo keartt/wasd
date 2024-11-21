@@ -4,16 +4,47 @@
 <head>
 
     <!-- 공통 설정 파일 삽입 -->
-    <div th:replace="~{/common/fragments/config :: ConfigFragment}"/>
-    <link th:inline="css" th:href="@{/css/common/fragments/menu.css}" rel="stylesheet"/>
+    <th:block th:replace="~{/common/fragments/config :: ConfigFragment}"/>
 
+    <link th:inline="css" th:href="@{/css/common/fragments/menu.css}" rel="stylesheet"/>
     <script th:inline="javascript" type="text/javascript" th:src="@{/js/common/fragments/menu.js}"></script>
+
     <script th:inline="javascript">let oauthUserInfo = /*[[${oauth}]]*/ {};</script>
 </head>
 
 <body class="container">
     <!--메뉴 영역 -->
-    <header th:replace="~{/common/fragments/menu :: MenuFragment}"></header>
+    <div class="groups">
+
+        <span title="프로필 수정">
+            <div class="groups-collection">
+                <div class="group profile-setting" id="main-profile" role="button" data-url="/main/profile" >
+                    <div class="group-icon"><i class="fa-solid fa-gear"></i></div>
+                </div>
+            </div>
+        </span>
+
+        <span title="그룹 목록">
+            <div class="groups-collection">
+                <div class="group group-main" id="main-group" role="button" data-url="/main/group" data-groups="">
+                    <div class="group-icon"><i class="fa-solid fa-user-group"></i></div>
+                </div>
+            </div>
+        </span>
+
+        <div id="myGroups" >
+
+        </div>
+
+        <span title="로그아웃">
+            <div class="groups-collection">
+                <div class="group logout" id="main-logout" role="button" data-url="/logout" >
+                    <div class="group-icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>
+                </div>
+            </div>
+        </span>
+    </div>
+
 
     <!--Content 내용 영역-->
     <div class="content-main">

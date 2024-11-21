@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <div th:replace="~{/common/fragments/config :: ConfigFragment}"/>
+    <th:block th:replace="~{/common/fragments/config :: ConfigFragment}"/>
     <!-- join-->
     <script th:inline="javascript">let oauthUserInfo = /*[[${oauth}]]*/ {};</script>
     <script th:inline="javascript" th:src="@{/js/user/join.js}"></script>

@@ -36,7 +36,7 @@ function getGameInfoUser() {
         error: function (xhr) {
             util.alert('error', xhr.responseJSON.msg || '서버 오류가 발생했습니다. 다시 시도해 주세요.' ,'',undefined,undefined);
         }, complete() {
-            getAllGroupList();
+            getAllGroupList();      // 모든 그룹
             getRcmGroupList();    // 추천 그룹 목록 조회
         }
     });
@@ -158,8 +158,8 @@ function getAllGroupList() {
                                         </div>
                                     </div>
                                     <div class="dc-limit-btn-box">
-                                        <button class="dc-limit-info-btn bt" onclick="infoGroup(${item.groupId})"><i class="fa-solid fa-info"></i></button>
-                                        <button class="dc-limit-join-btn bt" onclick="joinGroup(${item.groupId}, '${item.groupNm}')"><i class="fa-solid fa-arrow-right-to-bracket"></i></button>
+                                        <span title="그룹 정보"><button class="dc-limit-info-btn bt" onclick="infoGroup(${item.groupId})"><i class="fa-solid fa-info"></i></button></span>
+                                        <span title="그룹 참여"><button class="dc-limit-join-btn bt" onclick="joinGroup(${item.groupId}, '${item.groupNm}')"><i class="fa-solid fa-arrow-right-to-bracket"></i></button></span>
                                     </div>
                                 </div>
                             </div>
@@ -231,8 +231,8 @@ function getRcmGroupList(){
                                     </div>
                                 </div>
                                 <div class="dc-limit-btn-box">
-                                    <button class="dc-limit-info-btn bt" onclick="infoGroup(${item.groupId})"><i class="fa-solid fa-info"></i></button>
-                                    <button class="dc-limit-join-btn bt" onclick="joinGroup(${item.groupId}, '${item.groupNm}')"><i class="fa-solid fa-arrow-right-to-bracket"></i></button>
+                                    <span title="그룹 정보"><button class="dc-limit-info-btn bt" onclick="infoGroup(${item.groupId})"><i class="fa-solid fa-info"></i></button></span>
+                                    <span title="그룹 참여"><button class="dc-limit-join-btn bt" onclick="joinGroup(${item.groupId}, '${item.groupNm}')"><i class="fa-solid fa-arrow-right-to-bracket"></i></button></span>
                                 </div>
                             </div>
                         </div>
@@ -271,30 +271,33 @@ function getRcmGroupList(){
 // 그룹 참여
 function joinGroup(groupId, groupNm){
 
-    if(!confirm(`[ ${groupNm} ] 그룹에 참여하시겠습니까?`)){
-        return;
-    }
+    // 참여 질문 확인 이벤트
+    var joinAlertOk = async () =>{
 
-    $.ajax({
-        url: '/group/join',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify({
-            groupId:groupId
-        }),
-        dataType: 'json',
-        async: false,
-        success: function (res) {
+        await util.ajaxPromise({
+            url: '/group/join',
+            method: 'POST',
+            contentType :'json',
+            data:{
+                groupId:groupId
+            },
+            dataType: 'json'
+        }).then(res =>{
             getMyGroupList();   // 내 그룹 새로고침
-
             // 생성한 방으로 화면 전환
             $("[data-groupid='"+ groupId+"']").trigger("click");
+        }).catch(xhr =>
+            util.alert('error', xhr.responseJSON.msg || '서버 오류가 발생했습니다. 다시 시도해 주세요.' ,'',undefined,undefined)
+        );
 
+    }
 
-        }, error: function (xhr) {
-            util.alert('error', xhr.responseJSON.msg || '서버 오류가 발생했습니다. 다시 시도해 주세요.' ,'',undefined,undefined);
-        }
-    })
+    util.alert('question',
+        `[ ${groupNm} ] 그룹에 참여하시겠습니까?`,
+        '',
+        joinAlertOk,
+        undefined
+    );
 }
 
 // 그룹 정보 조회
