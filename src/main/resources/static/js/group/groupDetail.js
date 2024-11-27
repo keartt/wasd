@@ -41,6 +41,7 @@ var groupDetail = {
                     if(res != null){
                         $('.group-main').trigger('click');  // 그룹 목록 화면 전환
                         getMyGroupList(); // 내 참여 그룹 리셋
+                        this.destroy();
                     }
                 }).catch(xhr =>
                     util.alert('error', xhr.responseJSON.msg || '서버 오류가 발생했습니다. 다시 시도해 주세요.' ,'',undefined,undefined)

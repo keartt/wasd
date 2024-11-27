@@ -83,8 +83,10 @@ function userGameInfoSelectEvent() {
 
         if(currentValue != selectedValue){
             $('#userGameInfoSelect #selectedItem').html('<img src="/images/gameImg/' + selectedValue + '.png" /><span data-game="' + selectedValue + '">' + selectedText + '</span>');
+
             getAllGroupList(); // 그룹 목록 조회
             getRcmGroupList();    // 추천 그룹 목록 조회
+
         }
         $('#userGameInfoSelect').removeClass('open');
     });
@@ -198,6 +200,7 @@ function getRcmGroupList(){
         async: false,
         success: function (res) {
 
+            $('.rcm-group-box').show();
             if(res.length == 0){
                 $('.rcm-group-box').css('display', 'none');
             }
