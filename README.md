@@ -31,23 +31,16 @@
 
 #### FRONT-END
 
-<img src="https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white"/>
-<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=black"/>
-<img src="https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white"/>
+<img src="https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=black"/> <img src="https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white"/>
 
 #### BACK-END
 
-<img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"/>
-<img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white"/>
-<img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white"/>
-<img src="https://img.shields.io/badge/PosdtgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white"/>
-<img src="https://img.shields.io/badge/Web Socket-black?style=for-the-badge&logo=&logoColor=white"/>
+<img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"/> <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white"/> <img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white"/> <img src="https://img.shields.io/badge/PosdtgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white"/> <img src="https://img.shields.io/badge/Web Socket-black?style=for-the-badge&logo=&logoColor=white"/>
 
 
 ## 🧱 ERD
 
-<img width="35%" alt="db_pgsql" src="readmeImages/db_pgsql.png">
-<img width="35%" alt="db_mongo" src="readmeImages/db_mongo.png">
+<img width="35%" alt="db_pgsql" src="readmeImages/db_pgsql.png"> <img width="35%" alt="db_mongo" src="readmeImages/db_mongo.png">
 
 
 <br/>
@@ -74,9 +67,9 @@
 <summary>사용된 기술을 선택한 이유와 근거</summary>
 
 | 요구 사항                | 선택지                           | 핵심 기술을 선택한 이유 및 근거                                                                                                                                     |
-|:---------------------|:------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 게임 데이터<br>관리 방식      | - PostgreSQL</br>- MongoDB    | - 게임 데이터를 관리하는 과정에서 테이블 간의 복잡한 관계로 인해 성능 저하 및 관리가 어려움<br> - 스키마의 유연성을 위해 JSON 타입을 지원하는 MongoDB 도입<br><img width="500" src="readmeImages/mongoDB.png"/> |
-| 맞춤형<br>그룹 추천<br>알고리즘 | - 기본 조건 필터링<br>- 가중치 기반 점수 부여 | - 사용자가 입력한 프로필 정보와 그룹 정보 간의 유사성을 비교하여 맞춤형 점수를 계산<br>- 게임 속성, 게임 시간대 등을 기준으로 높은 연관성을 가진 그룹 추천<br>- 효율적인 필터링을 위해 기본 조건(인원수 미달 그룹) 선별                     |
+|:-------------------------:|:------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 게임<br>데이터<br>관리<br>방식      | - PostgreSQL</br>- MongoDB    | - 게임 데이터를 관리하는 과정에서 테이블 간의 복잡한 관계로 인해 성능 저하 및 관리가 어려움<br> - 스키마의 유연성을 위해 JSON 타입을 지원하는 MongoDB 도입<br><img width="500" src="readmeImages/mongoDB.png"/> |
+| 맞춤형<br>그룹<br>추천<br>알고리즘 | - 기본 조건 필터링<br>- 가중치 기반 점수 부여 | - 사용자가 입력한 프로필 정보와 그룹 정보 간의 유사성을 비교하여 맞춤형 점수를 계산<br>- 게임 속성, 게임 시간대 등을 기준으로 높은 연관성을 가진 그룹 추천<br>- 효율적인 필터링을 위해 기본 조건(인원수 미달 그룹) 선별                     |
 
 </details>
 
